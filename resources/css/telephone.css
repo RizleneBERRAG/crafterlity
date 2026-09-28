@@ -27,12 +27,36 @@
   .bande{padding-block:clamp(34px,7vw,52px)}
   .bande.serree{padding-block:clamp(26px,5vw,38px)}
 
-  /* ── le bandeau ───────────────────────────────────────────────────
+  /* ── le bandeau et son panneau ───────────────────────────────────
      Le bouton du menu est la seule commande visible : il doit etre
-     evident, pas encombrant. */
+     evident, pas encombrant.
+
+     Le panneau, lui, etait une simple liste de liens posee sur fond clair.
+     Il occupe maintenant toute la hauteur et se termine par ce que le
+     bandeau lui a pris : le bouton de telechargement et le numero. Un
+     menu de telephone n'est pas un sommaire, c'est la page d'orientation
+     du site — autant qu'on puisse en repartir. */
   .navin{min-height:60px;padding-block:8px}
   .marque .logo{height:19px}
   .burger{padding:8px 14px;font-size:.85rem}
+
+  .menu{inset:60px 0 auto 0;max-height:calc(100dvh - 60px);
+    padding:6px var(--gout) 28px;background:var(--papier)}
+  .menu a{padding:15px 0;font-size:1.1rem;font-family:var(--titre);
+    font-weight:600;border-bottom:1px solid var(--filet-2)}
+
+  .menu-pied{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+  .menu-pied .btn{width:100%}
+
+  /* Le numero est traite comme une fiche, pas comme un lien : l'intitule
+     au-dessus, le numero en grand dessous. C'est ce qu'on cherche quand
+     ca fuit. */
+  .menu-appel{display:flex;flex-direction:column;gap:2px;
+    padding:13px 16px;border:1px solid var(--filet);border-radius:var(--r);
+    text-decoration:none;background:var(--papier-2)}
+  .menu-appel .k{font-size:.82rem;color:var(--encre-dim)}
+  .menu-appel .v{font-family:var(--donnee);font-size:1.16rem;font-weight:500;
+    color:var(--encre)}
 
   /* ── le cartouche ─────────────────────────────────────────────────
      Sur un ecran large, c'est un en-tete de document en quatre cases.

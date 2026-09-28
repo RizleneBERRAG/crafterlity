@@ -56,15 +56,17 @@
 
 :root{
   /* ── le papier ─────────────────────────────────────────────────────
-     Un blanc casse, pas un blanc d'ecran. La nuance suffit a faire du
-     fond une surface plutot qu'une absence. */
-  --papier:#FCFCFA; --papier-2:#F5F5F1; --papier-3:#EDEDE7; --blanc:#FFFFFF;
+     Un blanc chaud, pas un blanc d'ecran. La premiere version tirait sur
+     le gris bleute : juste, et glacial. Un site qui envoie quelqu'un chez
+     vous ne peut pas avoir la temperature d'un tableur. Le meme papier,
+     rechauffe de quelques degres, change tout sans rien coûter. */
+  --papier:#FAF8F3; --papier-2:#F2EEE6; --papier-3:#E8E2D6; --blanc:#FFFFFF;
 
   /* ── l'encre ───────────────────────────────────────────────────────
      Le bleu nuit de l'application, devenu couleur de texte. Les trois
      tons descendent en contraste, et le plus clair tient encore 4,5:1
      sur le papier : aucun n'est decoratif, tous portent du texte. */
-  --encre:#14122E; --encre-2:#39365E; --encre-dim:#63608A;
+  --encre:#1A1830; --encre-2:#454063; --encre-dim:#6E6889;
 
   /* ── le rouge ──────────────────────────────────────────────────────
      Un rouge de tampon, pas un rouge d'alerte logicielle. Il ne parait
@@ -85,10 +87,12 @@
   --gout:clamp(20px,4.5vw,52px);
 
   /* ── le trace ──────────────────────────────────────────────────────
-     Presque rien : 2 pixels sur les champs de saisie, pour qu'ils ne
-     paraissent pas casses, et zero partout ailleurs. Un angle vif est
-     une decision, un angle arrondi est une habitude. */
-  --r:2px;
+     Cinq pixels, pas zero. La premiere version n'arrondissait rien : le
+     parti etait defendable, le resultat etait dur. Un angle vif partout
+     ne dit pas « rigueur », il dit « je n'ai pas fini ». Cinq pixels
+     suffisent a passer de l'austere au soigne, et restent trop peu pour
+     evoquer le bouton d'application. */
+  --r:5px;
 
   /* La barre rayee de l'application, en encre. C'est le seul motif que
      Crafterlity avait deja, et il dit exactement ce qu'il doit dire :
@@ -112,7 +116,7 @@
 html{scroll-padding-top:96px;-webkit-text-size-adjust:100%}
 
 body{margin:0;background:var(--papier);color:var(--encre);
-  font-family:var(--corps);font-size:16.5px;font-weight:400;line-height:1.62;
+  font-family:var(--corps);font-size:17px;font-weight:400;line-height:1.68;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
   overflow-x:hidden}
 
@@ -171,21 +175,25 @@ h4{font-size:1rem;font-weight:600}
    disparait. Le trait qui suit tire jusqu'au bord de la colonne — c'est
    lui qui donne la ligne d'en-tete d'un formulaire.
 */
-body{counter-reset:section}
+/*
+   L'intitule de section.
 
-.ref{display:flex;align-items:center;gap:16px;margin-bottom:clamp(22px,2.6vw,34px);
-  font-family:var(--donnee);font-size:11.5px;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
-.ref::before{counter-increment:section;
-  content:"Réf. " counter(section,decimal-leading-zero) " —";
-  white-space:nowrap;color:var(--encre)}
-.ref::after{content:"";flex:1;height:1px;background:var(--filet-2)}
+   Il portait un numero en chasse fixe — « REF. 01 — LES SERVICES » —
+   repete a chaque section de chaque page. C'etait le tic le plus scolaire
+   du site : un procede applique sept fois par page pour prouver qu'on a
+   un procede. Un document numerote ses articles parce qu'on s'y refere ;
+   personne ne dit « voyez la reference 03 » d'une page d'accueil.
 
-/* Une reference qui ne compte pas : les pages ou la numerotation n'a pas
-   de sens, comme une page legale. */
-.ref.muette::before{counter-increment:none;content:""}
-.ref.muette{gap:0}
-.ref.muette::after{margin-left:16px}
+   Reste un intitule discret, precede d'un trait court. La chasse fixe est
+   rendue aux donnees, a qui elle appartient.
+*/
+.ref{display:flex;align-items:center;gap:12px;margin-bottom:clamp(20px,2.4vw,30px);
+  font-family:var(--corps);font-size:.83rem;font-weight:600;
+  letter-spacing:.02em;color:var(--encre-dim)}
+.ref::before{content:"";width:24px;height:2px;flex:none;
+  background:var(--encre-dim);opacity:.55}
+
+
 
 /* ── l'en-tete de section ────────────────────────────────────────── */
 .entete{max-width:60ch;margin-bottom:clamp(28px,3.4vw,46px)}
@@ -249,6 +257,12 @@ body{counter-reset:section}
    matricielle. Un bouton maison reste net a tous les grossissements et
    suit la charte. */
 .stores{display:flex;flex-wrap:wrap;gap:12px}
+/* Dans un bloc centre, les deux boutons doivent le rester une fois passes
+   l'un sous l'autre : centrer le conteneur ne suffit pas, il faut centrer
+   les elements a l'interieur. C'est exactement ce qui se voyait en bas de
+   page sur telephone. */
+.btns.centre .stores,.stores.centre{justify-content:center}
+[style*="justify-content:center"] > .stores{justify-content:center}
 .store{display:inline-flex;align-items:center;gap:13px;
   padding:12px 22px 12px 18px;border:1px solid var(--filet);
   border-radius:var(--r);background:var(--blanc);
@@ -257,8 +271,7 @@ body{counter-reset:section}
 .store:hover{border-color:var(--encre)}
 .store svg{flex:none;color:var(--encre)}
 .store span{display:flex;flex-direction:column;line-height:1.2}
-.store .k{font-family:var(--donnee);font-size:10px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--encre-dim)}
+.store .k{font-size:.79rem;color:var(--encre-dim)}
 .store .v{font-family:var(--titre);font-size:.98rem;font-weight:600}
 
 /* ═══ le bandeau ═════════════════════════════════════════════════════ */
@@ -292,9 +305,10 @@ body{counter-reset:section}
 .burger[aria-expanded="true"] .ouvrir{display:none}
 .burger[aria-expanded="true"] .fermer{display:inline}
 
-/* Le rappel de telechargement vit au pied du panneau deroulant, et nulle
-   part ailleurs : au-dela de 900px le bandeau porte deja son bouton. */
-.menu .btn{display:none}
+/* Le pied du panneau vit dans le menu deroulant, et nulle part ailleurs :
+   au-dela de 900px le bandeau porte deja son bouton et le numero tient
+   dans le pied de page. */
+.menu-pied{display:none}
 
 /* ═══ le premier ecran ═══════════════════════════════════════════════ */
 
@@ -408,9 +422,9 @@ a.carte:hover .suite{border-bottom-color:var(--encre)}
   content:counter(etape,decimal-leading-zero)}
 .etape h3{margin-bottom:8px}
 .etape p{color:var(--encre-2)}
-.etape .detail{display:inline-block;margin-top:10px;
-  font-family:var(--donnee);font-size:.82rem;color:var(--encre-dim)}
-.etape .detail::before{content:"↳ "}
+.etape .detail{display:inline-block;margin-top:11px;
+  font-size:.88rem;font-weight:500;color:var(--encre-dim)}
+.etape .detail::before{content:"— "}
 
 /* ═══ l'encart ═══════════════════════════════════════════════════════ */
 
@@ -470,17 +484,16 @@ a.carte:hover .suite{border-bottom-color:var(--encre)}
 
 /* L'etiquette de public : une question d'artisan et une question de client
    ne se repondent pas de la meme facon. */
-.qr .public{flex:none;margin-top:4px;padding:2px 7px;
-  border:1px solid var(--filet);font-family:var(--donnee);font-size:9.5px;
-  font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+.qr .public{flex:none;margin-top:4px;padding:3px 10px;border-radius:var(--r);
+  background:var(--papier-2);font-size:.74rem;font-weight:600;
   color:var(--encre-dim)}
 
 /* ═══ les formulaires ═══════════════════════════════════════════════ */
 
 .form{display:grid;gap:18px}
 .champ{display:grid;gap:7px}
-.champ label{font-family:var(--donnee);font-size:11px;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--encre-dim)}
+.champ label{font-family:var(--titre);font-size:.95rem;font-weight:600;
+  color:var(--encre)}
 .champ .aide{font-size:.85rem;color:var(--encre-dim);text-transform:none;
   letter-spacing:0;font-family:var(--corps)}
 .champ input,.champ textarea,.champ select{
@@ -540,24 +553,36 @@ a.carte:hover .suite{border-bottom-color:var(--encre)}
 
 /* ═══ le pied de page ═══════════════════════════════════════════════ */
 
-.pied{border-top:1px solid var(--encre);padding-block:clamp(40px,4.6vw,62px) 26px}
-.piedin{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));
+.pied{border-top:1px solid var(--encre);background:var(--papier-2);
+  padding-block:clamp(40px,4.6vw,62px) 26px}
+
+/* L'appel, en tete du pied : le dernier endroit ou l'on peut rattraper
+   quelqu'un qui a tout lu sans rien faire. */
+.pied-tete{display:flex;flex-wrap:wrap;align-items:flex-start;
+  justify-content:space-between;gap:26px 40px;
+  padding-bottom:clamp(28px,3.4vw,44px);margin-bottom:clamp(28px,3.4vw,44px);
+  border-bottom:1px solid var(--filet-2)}
+.pied-tete .signature{margin-top:14px}
+.pied-tete .store{background:var(--papier)}
+
+.piedin{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
   gap:clamp(26px,3.4vw,48px)}
-.pied h4{font-family:var(--donnee);font-size:10.5px;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim);
-  margin-bottom:14px}
+.pied h4{font-family:var(--titre);font-size:.98rem;font-weight:600;
+  color:var(--encre);margin-bottom:14px}
 .pied ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
 .pied a{text-decoration:none;font-size:.92rem;color:var(--encre-2)}
 .pied a:hover{color:var(--encre);text-decoration:underline}
 .pied .logo{height:24px;width:auto;color:var(--encre);margin-bottom:16px}
 .pied .signature{font-size:.9rem;max-width:36ch;color:var(--encre-dim)}
 
-.ourlet{margin-top:clamp(32px,3.8vw,50px);padding-top:22px;
+.ourlet{margin-top:clamp(30px,3.6vw,46px);padding-top:22px;
   border-top:1px solid var(--filet-2);
-  display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;
-  font-family:var(--donnee);font-size:.78rem;color:var(--encre-dim)}
-.ourlet .droite{margin-left:auto;display:flex;flex-wrap:wrap;gap:18px}
-.ourlet a{text-decoration:none}
+  display:flex;flex-wrap:wrap;gap:10px 30px;align-items:baseline;
+  justify-content:space-between;font-size:.84rem;color:var(--encre-dim)}
+.ourlet-legal{margin:0}
+.ourlet-legal .mono{font-size:.94em}
+.ourlet-liens{display:flex;flex-wrap:wrap;gap:8px 20px}
+.ourlet a{text-decoration:none;color:var(--encre-dim)}
 .ourlet a:hover{color:var(--encre);text-decoration:underline}
 
 /* ═══ divers ════════════════════════════════════════════════════════ */
@@ -571,8 +596,7 @@ a.carte:hover .suite{border-bottom-color:var(--encre)}
 .evitement:focus{left:0;top:0}
 
 .ariane{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-  font-family:var(--donnee);font-size:.78rem;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--encre-dim);margin-bottom:20px}
+  font-size:.86rem;color:var(--encre-dim);margin-bottom:20px}
 .ariane a{color:var(--encre-dim);text-decoration:none}
 .ariane a:hover{color:var(--encre);text-decoration:underline}
 
@@ -661,3 +685,40 @@ a.jeton:hover{background:var(--encre);color:var(--papier)}
   .legal{max-width:none}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
 }
+
+/* ═══ les photographies ══════════════════════════════════════════════
+
+   Le site n'en avait aucune, et c'est ce qui le faisait paraitre froid :
+   une plateforme qui envoie quelqu'un chez vous ne peut pas etre
+   entierement composee de filets et de chiffres. Il fallait des mains,
+   des outils, un chantier.
+
+   Le parti tient en trois interdits. Aucun visage tourne vers l'objectif :
+   on montre le travail, pas des mannequins. Aucun sourire commande. Aucune
+   image « lifestyle » ou une famille heureuse regarde un artisan visser
+   une etagere — c'est le vocabulaire exact du site d'arnaque.
+
+   Toutes ont recu le MEME etalonnage : saturation a 55 %, balance
+   rechauffee, noirs leves vers l'encre de la page. Ce n'est pas la beaute
+   de chaque image qui fait une direction artistique, c'est le fait
+   qu'elles aient toutes subi le meme traitement. */
+
+.photo{display:block;width:100%;height:auto;border-radius:var(--r);
+  background:var(--papier-2)}
+
+/* La bande pleine largeur. Sa hauteur est bornee : une photographie qui
+   occupe tout l'ecran n'est plus une illustration, c'est une interruption. */
+.bande-photo{padding:0;border-top:1px solid var(--filet)}
+.bande-photo img{width:100%;height:clamp(240px,30vw,400px);object-fit:cover;
+  display:block}
+
+/* La legende : une ligne sous l'image, alignee sur la colonne de texte.
+   Elle dit ce qu'on regarde, elle ne commente pas. */
+.photo-legende{margin-top:12px;font-size:.85rem;color:var(--encre-dim)}
+
+/* Le bandeau d'une page metier : l'image, puis le titre. L'inverse — le
+   titre par-dessus l'image — obligerait a assombrir la photographie pour
+   que le texte tienne, et on perdrait les deux. */
+.photo-metier{margin-bottom:clamp(26px,3vw,40px)}
+.photo-metier img{width:100%;height:clamp(200px,26vw,330px);object-fit:cover;
+  border-radius:var(--r);display:block}

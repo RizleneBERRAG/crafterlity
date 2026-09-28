@@ -312,4 +312,51 @@ class SiteTest extends TestCase
             ->assertSee($s['siren'], false)
             ->assertSee($s['ville'], false);
     }
+
+    /**
+     * Aucune balise HTML ne porte d'accent.
+     *
+     * Ce test existe parce que le bug s'est produit, et qu'il a tenu
+     * plusieurs jours sans etre vu : une passe d'accentuation automatique
+     * avait transforme « <details> » en « <detail-accentue> ». Le
+     * navigateur ne connait pas cet element, il le rend comme un conteneur
+     * quelconque — toutes les reponses de la FAQ restaient donc ouvertes,
+     * et aucune ne se refermait. Aucune erreur, aucun avertissement, juste
+     * un composant mort.
+     */
+    public function test_aucune_balise_html_n_est_accentuee(): void
+    {
+        $gabarits = glob(resource_path('views').'/{,*/,*/*/}*.blade.php', GLOB_BRACE);
+        $this->assertNotEmpty($gabarits);
+
+        foreach ($gabarits as $fichier) {
+            $source = file_get_contents($fichier);
+
+            // Les commentaires Blade sont ecrits en francais : ils sortent.
+            $source = preg_replace('/\{\{--.*?--\}\}/s', '', $source);
+
+            preg_match_all('#</?([a-zA-Z][^\s/>]*)#u', $source, $balises);
+
+            foreach ($balises[1] as $balise) {
+                $this->assertSame(
+                    $balise,
+                    preg_replace('/[^ -~]/u', '', $balise),
+                    'Balise accentuee dans '.basename($fichier).' : <'.$balise.'>'
+                );
+            }
+        }
+    }
+
+    /** La FAQ est bien construite sur des <details> repliables. */
+    public function test_la_faq_est_repliable(): void
+    {
+        $html = $this->get(route('questions'))->assertOk()->getContent();
+
+        $nb = substr_count($html, '<details class="qr">');
+        $this->assertSame(count(config('parcours.faq')), $nb,
+            'Chaque question doit etre un <details> : sans cela elles restent toutes ouvertes.');
+
+        // Aucune ne s'ouvre d'office : on arrive sur une liste, pas sur un mur.
+        $this->assertStringNotContainsString('<details class="qr" open', $html);
+    }
 }

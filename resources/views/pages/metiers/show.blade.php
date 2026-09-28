@@ -47,6 +47,20 @@
             <span>{{ $metier['nom'] }}</span>
         </nav>
 
+        {{-- La photographie du metier. Elle precede le titre : le titre
+             par-dessus l'image obligerait a assombrir la photo pour que le
+             texte tienne, et on perdrait les deux. --}}
+        @php $photo = public_path('images/metier-'.$metier['slug'].'.webp'); @endphp
+        @if(file_exists($photo))
+            <figure class="photo-metier">
+                <img src="{{ asset('images/metier-'.$metier['slug'].'.webp') }}"
+                     srcset="{{ asset('images/metier-'.$metier['slug'].'.webp') }} 760w, {{ asset('images/metier-'.$metier['slug'].'@2x.webp') }} 1520w"
+                     sizes="(max-width: 1320px) 92vw, 1220px"
+                     width="760" height="494" fetchpriority="high"
+                     alt="Une intervention de {{ strtolower($metier['nom']) }} en cours.">
+            </figure>
+        @endif
+
         <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px">
             <span class="icone" style="width:58px;height:58px;border-radius:17px;
                 display:grid;place-items:center;color:var(--or);

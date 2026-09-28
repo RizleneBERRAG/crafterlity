@@ -177,6 +177,18 @@
     </div>
 </section>
 
+{{-- ═══ la bande ════════════════════════════════════════════════
+     Une respiration entre deux blocs de texte, et le seul endroit du site
+     ou une image occupe toute la largeur. Elle montre ce que le reste
+     decrit : une camionnette d'artisan, une rue, un matin. --}}
+
+<section class="bande-photo">
+    <img src="{{ asset('images/bande-chantier.webp') }}"
+         srcset="{{ asset('images/bande-chantier.webp') }} 1280w, {{ asset('images/bande-chantier@2x.webp') }} 2560w"
+         sizes="100vw" width="1280" height="516" loading="lazy"
+         alt="Une camionnette d'artisan ouverte sur ses caisses à outils, garée dans une rue pavée de Lyon au petit matin.">
+</section>
+
 {{-- ═══ la methode ═════════════════════════════════════════════════ --}}
 
 <section class="bande jour" data-anime>

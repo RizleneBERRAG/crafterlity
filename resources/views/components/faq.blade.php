@@ -12,7 +12,7 @@
 
 <div class="faq">
     @foreach($questions as $item)
-        <détails class="qr">
+        <details class="qr">
             <summary>
                 @if($etiquettes)
                     <span class="public {{ $item['public'] === 'pro' ? 'pro' : '' }}">
@@ -23,6 +23,6 @@
                 <span class="signe" aria-hidden="true"></span>
             </summary>
             <p class="reponse">{{ $item['r'] }}</p>
-        </détails>
+        </details>
     @endforeach
 </div>

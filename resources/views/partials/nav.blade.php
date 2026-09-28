@@ -36,14 +36,22 @@
             <a href="{{ route('contact') }}"
                @if(request()->routeIs('contact')) aria-current="page" @endif>Contact</a>
 
-            {{-- Sous 920px, le bandeau masque le bouton de telechargement.
-                 Sans ce rappel au pied du panneau, la seule action du site
-                 disparaitrait de toute la navigation sur telephone — c'est
+            {{-- Le pied du panneau. Sous 900px, le bandeau masque le bouton
+                 de telechargement ET le numero : sans ce rappel, la seule
+                 action du site et la seule facon de joindre quelqu'un
+                 disparaissent de toute la navigation sur telephone — c'est
                  pourtant la que se trouvent la moitie des visiteurs d'une
                  page d'application. --}}
-            <a class="btn or" href="{{ route('telecharger') }}" style="margin-top:14px">
-                Télécharger l'application
-            </a>
+            <div class="menu-pied">
+                <a class="btn plein" href="{{ route('telecharger') }}">
+                    Télécharger l'application
+                </a>
+
+                <a class="menu-appel" href="tel:+33767914587">
+                    <span class="k">Une urgence ? Appelez</span>
+                    <span class="v">{{ config('crafterlity.societe.telephone') }}</span>
+                </a>
+            </div>
         </nav>
 
         <div class="navcta">

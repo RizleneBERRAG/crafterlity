@@ -87,7 +87,7 @@ sont relatifs : ils valent à la racine d'un domaine comme dans un
 sous-répertoire.
 
 ```powershell
-php artisan test     # 17 tests
+php artisan test     # 19 tests
 npm run dev          # rechargement à chaud pendant le développement
 ```
 
@@ -240,6 +240,53 @@ des artisans fictifs pour réels serait exactement l'erreur à ne pas commettre.
 
 Sans JavaScript, le bloc reste un sommaire : les dix jetons sont des liens
 vers les pages métier.
+
+### Les photographies
+
+Le site n'en avait aucune, et c'est ce qui le faisait paraître froid — « un
+projet d'école », « trop robotisé ». Une plateforme qui envoie quelqu'un chez
+vous ne peut pas être entièrement composée de filets et de chiffres.
+
+Dix photographies ont été **générées sur mesure**, puis étalonnées.
+Le parti tient en trois interdits : aucun visage tourné vers l'objectif,
+aucun sourire commandé, aucune image « lifestyle » où une famille heureuse
+regarde un artisan visser une étagère — c'est le vocabulaire exact du site
+d'arnaque. On montre le travail : des mains, des outils, un chantier.
+
+Toutes ont reçu le **même étalonnage** (`resources/` → voir le commentaire de
+`.photo` dans `app.css`) : saturation à 55 %, balance réchauffée pour annuler
+la dominante bleu-vert, noirs levés vers l'encre de la page plutôt que vers
+le noir pur. Ce n'est pas la beauté de chaque image qui fait une direction
+artistique, c'est le fait qu'elles aient toutes subi le même traitement.
+
+Elles paraissent à trois endroits seulement : en bandeau sur chacune des dix
+pages métier, en bande pleine largeur sur l'accueil, et sur la page artisans.
+**À remplacer par les vraies photos de Crafterlity** dès qu'ils en auront.
+
+### Ce qui a été dé-robotisé
+
+Une version intermédiaire appliquait son parti trop systématiquement — le
+défaut du projet d'école : on applique un procédé partout pour prouver qu'on
+a un procédé.
+
+- **Les « RÉF. 01 — » ont disparu.** Un numéro en chasse fixe devant chaque
+  section, sept fois par page. Un document numérote ses articles parce qu'on
+  s'y réfère ; personne ne dit « voyez la référence 03 » d'une page d'accueil.
+- **La chasse fixe est rendue aux données.** Elle était partout : intitulés,
+  fil d'Ariane, libellés de formulaire, titres du pied. Partout, elle ne dit
+  plus « donnée », elle dit « machine ». Elle garde le SIREN, les prix, les
+  horaires, les codes postaux — ce qui se recopie.
+- **Le papier s'est réchauffé** (`#FAF8F3` au lieu de `#FCFCFA`) et l'encre
+  avec lui. Un site qui envoie quelqu'un chez vous ne peut pas avoir la
+  température d'un tableur.
+- **Les angles sont passés de 2 à 5 pixels.** Un angle vif partout ne dit pas
+  « rigueur », il dit « je n'ai pas fini ».
+- **Le pied de page ne se répète plus.** Il affichait deux fois la forme
+  juridique, le capital et le RCS — une fois en chasse fixe, une fois en
+  texte courant.
+- **Le panneau du menu** n'est plus une liste nue : il porte le bouton de
+  téléchargement et le numéro d'urgence, que le bandeau lui prend sur un
+  écran étroit.
 
 ### Le logo
 

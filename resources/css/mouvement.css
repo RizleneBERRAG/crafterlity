@@ -73,9 +73,8 @@
 
 #nav-ref{display:none;margin-left:20px;padding-left:20px;
   border-left:1px solid var(--filet-2);
-  font-family:var(--donnee);font-size:10.5px;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--encre-dim);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:22ch;
+  font-size:.84rem;font-weight:500;color:var(--encre-dim);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:24ch;
   opacity:0;transition:opacity .2s linear}
 #nav-ref.visible{opacity:1}
 /* 1400 px et non 1180 : en dessous, le temoin volait la place des
@@ -90,8 +89,8 @@
 .filtre{display:flex;align-items:center;gap:14px;
   margin-bottom:22px;padding-bottom:14px;
   border-bottom:1px solid var(--filet)}
-.filtre-label{font-size:10.5px;font-weight:500;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--encre-dim);flex:none}
+.filtre-label{font-family:var(--titre);font-size:.95rem;font-weight:600;
+  color:var(--encre);flex:none}
 .filtre-champ{flex:1;min-width:0;padding:10px 0;border:0;background:none;
   font:inherit;font-size:1.02rem;color:var(--encre)}
 .filtre-champ::placeholder{color:var(--encre-dim);opacity:.75}
@@ -113,8 +112,7 @@
 .onglets{display:flex;flex-wrap:wrap;gap:0;margin-bottom:20px;
   border-bottom:1px solid var(--filet)}
 .onglet{padding:9px 14px;border:0;background:none;cursor:pointer;
-  font-family:var(--donnee);font-size:10.5px;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--encre-dim);
+  font-size:.88rem;font-weight:600;color:var(--encre-dim);
   border-bottom:2px solid transparent;margin-bottom:-1px;
   transition:color .16s linear,border-color .16s linear}
 .onglet:hover{color:var(--encre)}
@@ -147,10 +145,11 @@
 .simu-sortie{padding:clamp(18px,2.2vw,28px);min-height:340px;
   display:flex;flex-direction:column;gap:14px}
 
-.simu-legende{display:flex;align-items:center;gap:10px;margin-bottom:12px;
-  font-family:var(--donnee);font-size:10.5px;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
-.simu-legende .n{color:var(--encre)}
+.simu-legende{display:flex;align-items:center;gap:9px;margin-bottom:12px;
+  font-size:.86rem;font-weight:600;color:var(--encre-dim)}
+/* Le numero d'etape garde la chasse fixe : c'est un rang, donc une
+   donnee. L'intitule qui le suit, non. */
+.simu-legende .n{font-family:var(--donnee);color:var(--encre)}
 
 /* ── les jetons de choix ────────────────────────────────────────────
    Des cases a cocher rectangulaires, pas des pastilles. Le choix actif
@@ -415,8 +414,7 @@
 .compare-col--nous .compare-tete{background:var(--encre)}
 .compare-col--nous .compare-tete h3{color:var(--papier)}
 .compare-col--nous .compare-tete .compare-quoi{color:var(--papier);opacity:.7}
-.compare-quoi{font-family:var(--donnee);font-size:9.5px;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
+.compare-quoi{font-size:.8rem;font-weight:500;color:var(--encre-dim)}
 
 .compare-lignes{list-style:none;margin:0;padding:0;flex:1}
 .compare-ligne{display:grid;grid-template-columns:5.4em 1fr;gap:14px;
@@ -465,16 +463,6 @@
    element SVG. Aucune transition declaree ici, donc — la valeur arrive
    deja interpolee. */
 .plan-mobile{fill:var(--rouge);offset-rotate:0deg;offset-distance:0%}
-
-/* ═══ le colophon ════════════════════════════════════════════════════
-   La derniere ligne d'un imprime : qui l'a etabli, quand, sous quelle
-   reference. Elle ferme le document comme le cartouche l'ouvrait. */
-
-.colophon{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;
-  margin-top:26px;padding-top:18px;border-top:2px solid var(--encre);
-  font-family:var(--donnee);font-size:.74rem;letter-spacing:.04em;
-  color:var(--encre-dim)}
-.colophon b{color:var(--encre);font-weight:500}
 
 @media (max-width:900px){
   /* Le cartouche sur telephone est traite dans telephone.css, ou il se

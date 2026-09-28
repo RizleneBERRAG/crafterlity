@@ -121,12 +121,17 @@
 <section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo inverse">
+            {{-- Une photographie plutot qu'une quatrieme capture d'ecran :
+                 sur la page qui s'adresse aux artisans, c'est leur metier
+                 qu'il faut montrer, pas encore une interface. --}}
             <div class="duo-visuel">
-                <img src="{{ asset('images/app-suivi.webp') }}"
-                     srcset="{{ asset('images/app-suivi.webp') }} 620w, {{ asset('images/app-suivi@2x.webp') }} 1240w"
-                     sizes="(max-width: 920px) 72vw, 300px"
-                     width="620" height="1032" loading="lazy"
-                     alt="La fiche d'un technicien dans l'application : son nom, sa spécialité, sa note et son nombre de missions réalisées.">
+                <figure>
+                    <img class="photo" src="{{ asset('images/metier-menuiserie.webp') }}"
+                         srcset="{{ asset('images/metier-menuiserie.webp') }} 760w, {{ asset('images/metier-menuiserie@2x.webp') }} 1520w"
+                         sizes="(max-width: 900px) 92vw, 420px"
+                         width="760" height="494" loading="lazy"
+                         alt="Les mains d'un menuisier rabotant le chant d'une porte posée sur tréteaux.">
+                </figure>
             </div>
 
             <div class="duo-texte">
