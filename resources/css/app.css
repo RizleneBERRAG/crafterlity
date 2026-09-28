@@ -1,0 +1,643 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Crafterlity — charte « Bon d'intervention »
+
+   POURQUOI CETTE DIRECTION
+
+   Une premiere version reprenait la charte de l'application : fond bleu
+   nuit, or, halos lumineux, boutons en gelule. Elle a ete abandonnee, et
+   pour une raison qui vaut d'etre ecrite ici, parce qu'elle vaut pour tout
+   le site.
+
+   Sombre + or + lueurs, c'est la signature visuelle des pages de crypto et
+   de dropshipping. Un visiteur qui cherche un artisan a domicile a deja
+   entendu parler du serrurier a 900 €, du devis qui triple sur le palier,
+   du technicien qui n'a pas de SIRET. Il arrive mefiant. Lui servir la
+   grammaire graphique de l'arnaque, c'est confirmer sa crainte avant qu'il
+   ait lu une ligne. Une plateforme qui doit prouver qu'elle n'est pas une
+   escroquerie n'a pas le droit d'en avoir l'air.
+
+   LE PARTI
+
+   Le site prend la forme de ce qu'il vend : un document de chantier. Un bon
+   d'intervention, un devis, un rapport de verification. Trois consequences.
+
+   1. LE PAPIER ET L'ENCRE. Fond clair, encre bleu nuit — la couleur de
+      l'application, mais employee comme ENCRE et non comme decor. La
+      continuite de marque est gardee, l'effet « page doree » a disparu.
+
+   2. LE FILET. C'est le seul ornement du site, et il structure tout :
+      il borde les sections, separe les cellules d'une grille, souligne un
+      intitule. La ou une autre charte poserait une carte avec un rayon, une
+      ombre et un fond, celle-ci pose un trait d'un pixel. Un formulaire
+      administratif n'a pas d'ombres portees ; il a des filets.
+
+   3. LA DONNEE EN CHASSE FIXE. Les numeros de reference, le SIREN, les
+      delais, les prix et les codes postaux sont composes en Plex Mono. Ce
+      seul detail fait passer la page du registre publicitaire au registre
+      documentaire — et c'est precisement ce qui manque a une plateforme
+      qui demande qu'on lui fasse confiance.
+
+   CE QUE LA CHARTE S'INTERDIT
+
+   Aucun degrade. Aucune ombre portee. Aucun halo. Aucune animation
+   d'apparition. Aucun grand rayon. Le rouge ne sert qu'a l'urgence : s'il
+   servait aussi aux erreurs de formulaire ou aux liens, il ne voudrait
+   plus rien dire le jour ou il compte.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── le papier ─────────────────────────────────────────────────────
+     Un blanc casse, pas un blanc d'ecran. La nuance suffit a faire du
+     fond une surface plutot qu'une absence. */
+  --papier:#FCFCFA; --papier-2:#F5F5F1; --papier-3:#EDEDE7; --blanc:#FFFFFF;
+
+  /* ── l'encre ───────────────────────────────────────────────────────
+     Le bleu nuit de l'application, devenu couleur de texte. Les trois
+     tons descendent en contraste, et le plus clair tient encore 4,5:1
+     sur le papier : aucun n'est decoratif, tous portent du texte. */
+  --encre:#14122E; --encre-2:#39365E; --encre-dim:#63608A;
+
+  /* ── le rouge ──────────────────────────────────────────────────────
+     Un rouge de tampon, pas un rouge d'alerte logicielle. Il ne parait
+     que sur ce qui releve de l'urgence. */
+  --rouge:#C8102E; --rouge-fond:#FBF0F1;
+
+  /* ── les filets ────────────────────────────────────────────────────
+     Trois epaisseurs de gris, et c'est tout le vocabulaire decoratif du
+     site. --filet-fort souligne un titre de section, --filet separe deux
+     blocs, --filet-2 fait la trame d'une grille. */
+  --filet-fort:var(--encre);
+  --filet:rgba(20,18,46,.22);
+  --filet-2:rgba(20,18,46,.11);
+
+  /* ── la mesure ───────────────────────────────────────────────────── */
+  --maxw:clamp(1000px,90vw,1280px);
+  --etroit:clamp(580px,62vw,720px);   /* la colonne de lecture des pages legales */
+  --gout:clamp(20px,4.5vw,52px);
+
+  /* ── le trace ──────────────────────────────────────────────────────
+     Presque rien : 2 pixels sur les champs de saisie, pour qu'ils ne
+     paraissent pas casses, et zero partout ailleurs. Un angle vif est
+     une decision, un angle arrondi est une habitude. */
+  --r:2px;
+
+  --titre:"Archivo",Helvetica,Arial,sans-serif;
+  --corps:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --donnee:"Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+
+/* ═══ base ═══════════════════════════════════════════════════════════ */
+
+*{box-sizing:border-box}
+
+/* Le bandeau est collant : sans reserve, une ancre depose sa cible
+   DERRIERE lui. Vaut pour toutes les ancres du site. */
+html{scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+
+body{margin:0;background:var(--papier);color:var(--encre);
+  font-family:var(--corps);font-size:16.5px;font-weight:400;line-height:1.62;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden}
+
+/* height:auto est indispensable des lors que les images declarent leur
+   hauteur : sans lui le navigateur applique l'attribut litteralement. */
+img,svg{max-width:100%;height:auto;display:block}
+a{color:inherit;text-underline-offset:.2em}
+button{font:inherit;color:inherit}
+p{margin:0}
+
+/* Un seul style de focus pour tout le site. Le rouge est ecarte : il est
+   reserve a l'urgence, et un contour de focus n'est pas une urgence. */
+:focus-visible{outline:2px solid var(--encre);outline-offset:2px}
+::selection{background:var(--encre);color:var(--papier)}
+
+h1,h2,h3,h4{margin:0;font-family:var(--titre);line-height:1.06;
+  letter-spacing:-.022em;text-wrap:balance;font-weight:700;color:var(--encre)}
+h1{font-size:clamp(2.3rem,5vw,3.9rem);letter-spacing:-.032em}
+h2{font-size:clamp(1.65rem,3.1vw,2.5rem);letter-spacing:-.028em}
+h3{font-size:clamp(1.1rem,1.6vw,1.3rem);letter-spacing:-.012em;font-weight:600}
+h4{font-size:1rem;font-weight:600}
+
+/* ── la donnee ─────────────────────────────────────────────────────── */
+.donnee,.mono{font-family:var(--donnee);font-variant-numeric:tabular-nums}
+
+/* ═══ le squelette ═══════════════════════════════════════════════════ */
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gout)}
+.wrap.etroit{max-width:var(--etroit)}
+
+/* Chaque section est bordee par le haut. C'est ce filet, repete, qui
+   donne au site sa structure de document : les sections ne flottent pas,
+   elles sont reglees. */
+.bande{position:relative;padding-block:clamp(48px,6vw,86px);
+  border-top:1px solid var(--filet)}
+.bande.serree{padding-block:clamp(34px,4vw,54px)}
+.bande.grise{background:var(--papier-2)}
+.bande.premiere{border-top:0}
+
+/* L'ancienne charte alternait nuit et jour. Les noms survivent dans les
+   gabarits ; ils designent maintenant une simple teinte de papier. */
+.jour{background:var(--papier-2)}
+
+/* Le halo du premier ecran n'existe plus. La regle le neutralise plutot
+   que de chasser la balise dans dix gabarits : le jour ou une section
+   voudra un fond, elle aura un aplat, pas une lueur. */
+.halo{display:none}
+
+/* ═══ la reference de section ════════════════════════════════════════ */
+
+/*
+   « REF. 01 — DEMANDE ». C'est le motif identitaire du site.
+
+   Le numero vient d'un compteur CSS : rien a ecrire dans les gabarits, et
+   la numerotation reste juste le jour ou une section s'ajoute ou
+   disparait. Le trait qui suit tire jusqu'au bord de la colonne — c'est
+   lui qui donne la ligne d'en-tete d'un formulaire.
+*/
+body{counter-reset:section}
+
+.ref{display:flex;align-items:center;gap:16px;margin-bottom:clamp(22px,2.6vw,34px);
+  font-family:var(--donnee);font-size:11.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
+.ref::before{counter-increment:section;
+  content:"Réf. " counter(section,decimal-leading-zero) " —";
+  white-space:nowrap;color:var(--encre)}
+.ref::after{content:"";flex:1;height:1px;background:var(--filet-2)}
+
+/* Une reference qui ne compte pas : les pages ou la numerotation n'a pas
+   de sens, comme une page legale. */
+.ref.muette::before{counter-increment:none;content:""}
+.ref.muette{gap:0}
+.ref.muette::after{margin-left:16px}
+
+/* ── l'en-tete de section ────────────────────────────────────────── */
+.entete{max-width:60ch;margin-bottom:clamp(28px,3.4vw,46px)}
+.entete h1,.entete h2{margin-bottom:16px}
+.entete.centre{margin-inline:auto;text-align:center}
+.lede{font-size:clamp(1rem,1.3vw,1.14rem);line-height:1.58;color:var(--encre-2)}
+.note{font-size:.88rem;color:var(--encre-dim)}
+
+/* Les anciens noms, gardes pour ne pas reprendre quarante gabarits. */
+.rubrique{display:flex;align-items:center;gap:16px;margin-bottom:18px;
+  font-family:var(--donnee);font-size:11.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
+.rubrique::after{content:"";flex:1;height:1px;background:var(--filet-2)}
+.chapitre{max-width:60ch;margin-bottom:clamp(28px,3.4vw,46px)}
+.chapitre h1,.chapitre h2,.chapitre h3{margin-bottom:16px}
+.chapitre.centre{margin-inline:auto;text-align:center}
+.chapitre.centre .rubrique{justify-content:center}
+.chapitre.centre .rubrique::after{display:none}
+
+/* ═══ boutons ════════════════════════════════════════════════════════ */
+
+/*
+   Un rectangle, un filet, rien d'autre. Pas de gelule, pas d'ombre, pas
+   de degrade : trois signes qui, ensemble, font « bouton d'application
+   gratuite » et defont tout le reste de la page.
+*/
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 26px;border:1px solid var(--encre);border-radius:var(--r);
+  background:transparent;color:var(--encre);
+  font-family:var(--titre);font-size:.95rem;font-weight:600;letter-spacing:-.005em;
+  text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:background-color .14s linear,color .14s linear,border-color .14s linear}
+
+/* L'action principale : l'encre pleine. Une seule par ecran. */
+.btn.plein,.btn.or{background:var(--encre);color:var(--papier)}
+.btn.plein:hover,.btn.or:hover{background:var(--encre-2);border-color:var(--encre-2)}
+
+.btn.creux:hover,.btn:not(.plein):not(.or):not(.rouge):hover{
+  background:var(--encre);color:var(--papier)}
+
+.btn.rouge{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.btn.rouge:hover{background:#A60D26;border-color:#A60D26}
+
+.btn.petit{padding:10px 18px;font-size:.88rem}
+.btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btns.centre{justify-content:center}
+
+/* Le lien qui avance. La fleche est un caractere, pas une icone : elle
+   suit la couleur et la graisse du texte sans qu'on ait a la dessiner. */
+.suite{display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--titre);font-weight:600;font-size:.94rem;
+  color:var(--encre);text-decoration:none;
+  border-bottom:1px solid var(--filet);padding-bottom:2px}
+.suite:hover{border-bottom-color:var(--encre)}
+.suite svg{flex:none}
+
+/* ── les liens de telechargement ───────────────────────────────────
+   Dessines ici plutot que repris des badges officiels : ces badges sont
+   des marques deposees, leurs regles d'emploi imposent des zones de
+   protection et des versions localisees, et ils arrivent en image
+   matricielle. Un bouton maison reste net a tous les grossissements et
+   suit la charte. */
+.stores{display:flex;flex-wrap:wrap;gap:12px}
+.store{display:inline-flex;align-items:center;gap:13px;
+  padding:12px 22px 12px 18px;border:1px solid var(--filet);
+  border-radius:var(--r);background:var(--blanc);
+  text-decoration:none;color:var(--encre);
+  transition:border-color .14s linear}
+.store:hover{border-color:var(--encre)}
+.store svg{flex:none;color:var(--encre)}
+.store span{display:flex;flex-direction:column;line-height:1.2}
+.store .k{font-family:var(--donnee);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--encre-dim)}
+.store .v{font-family:var(--titre);font-size:.98rem;font-weight:600}
+
+/* ═══ le bandeau ═════════════════════════════════════════════════════ */
+
+.nav{position:sticky;top:0;z-index:60;background:var(--papier);
+  border-bottom:1px solid var(--encre)}
+.navin{display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);
+  min-height:68px;padding-block:10px}
+
+.marque{display:flex;align-items:center;text-decoration:none;flex:none}
+.marque .logo{height:21px;width:auto;color:var(--encre)}
+
+.menu{display:flex;align-items:center;gap:clamp(2px,.8vw,6px);margin-left:auto}
+.menu a{padding:8px 11px;text-decoration:none;font-size:.92rem;font-weight:500;
+  color:var(--encre-2);border-bottom:2px solid transparent;
+  transition:color .14s linear,border-color .14s linear}
+.menu a:hover{color:var(--encre);border-bottom-color:var(--filet)}
+.menu a[aria-current]{color:var(--encre);border-bottom-color:var(--encre)}
+
+.navcta{display:flex;align-items:center;gap:10px;flex:none}
+
+/* Le bouton du menu n'existe que sur les fenetres etroites ; il est masque
+   au-dela, pas retire du document, pour que le script le trouve toujours. */
+.burger{display:none;align-items:center;gap:8px;padding:9px 15px;
+  border:1px solid var(--encre);border-radius:var(--r);background:transparent;
+  cursor:pointer;font-family:var(--titre);font-weight:600;font-size:.88rem}
+.burger .fermer{display:none}
+.burger[aria-expanded="true"] .ouvrir{display:none}
+.burger[aria-expanded="true"] .fermer{display:inline}
+
+/* Le rappel de telechargement vit au pied du panneau deroulant, et nulle
+   part ailleurs : au-dela de 900px le bandeau porte deja son bouton. */
+.menu .btn{display:none}
+
+/* ═══ le premier ecran ═══════════════════════════════════════════════ */
+
+.hero{padding-block:clamp(40px,5.4vw,76px) 0}
+.heroin{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+  gap:clamp(26px,4.4vw,64px);align-items:start}
+.hero h1{margin-bottom:20px;max-width:14ch}
+
+/* Le mot souligne. Un trait plein sous un mot, comme on souligne sur un
+   document imprime — pas une couleur d'accent.
+
+   Le trait est une DECORATION DE TEXTE, pas une bordure. Une bordure se
+   pose sous la boite en ligne, dont la hauteur depasse celle de la ligne
+   quand l'interlignage est serre : le trait allait alors mordre sur la
+   ligne suivante. Une decoration se cale sur la ligne de base, et reste
+   ou on l'attend quel que soit le corps. */
+.hero h1{line-height:1.12}
+.hero h1 .or,.hero h1 .souligne{color:inherit;
+  text-decoration:underline;text-decoration-thickness:5px;
+  text-underline-offset:.1em;text-decoration-skip-ink:none}
+
+.hero-lede{font-size:clamp(1.02rem,1.35vw,1.18rem);line-height:1.56;
+  color:var(--encre-2);max-width:52ch;margin-bottom:26px}
+
+/* Le rappel d'urgence : un filet rouge a gauche, comme une mention portee
+   en marge d'un bon. Pas d'aplat colore, pas de pastille clignotante. */
+.hero-urgence{display:flex;gap:14px;margin-bottom:24px;padding:14px 18px;
+  background:var(--rouge-fond);border-left:3px solid var(--rouge)}
+.hero-urgence .pastille{display:none}
+.hero-urgence b{font-family:var(--titre);color:var(--rouge);font-weight:700}
+.hero-urgence span{font-size:.93rem;color:var(--encre-2)}
+
+.hero-visuel{justify-self:center}
+.hero-visuel img{width:min(290px,70vw);margin-inline:auto}
+
+/* ── le releve de preuves ──────────────────────────────────────────
+   Quatre cellules separees par des filets verticaux, comme les colonnes
+   d'un tableau. La valeur est en chasse fixe : c'est une donnee, pas un
+   argument. */
+.preuves{display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--encre);border-bottom:1px solid var(--filet)}
+.preuve{padding:22px clamp(14px,2vw,26px);border-left:1px solid var(--filet-2);
+  display:flex;flex-direction:column;gap:5px}
+.preuve:first-child{border-left:0;padding-left:0}
+.preuve .k{font-family:var(--donnee);font-size:1.3rem;font-weight:500;
+  letter-spacing:-.02em;line-height:1.1}
+.preuve .v{font-family:var(--titre);font-weight:600;font-size:.95rem}
+.preuve .d{font-size:.85rem;color:var(--encre-dim);line-height:1.48}
+
+/* ═══ les grilles ════════════════════════════════════════════════════ */
+
+/*
+   La grille ne pose pas de cartes : elle pose une trame. Le fond du
+   conteneur est un gris de filet, les cellules sont en papier, et un
+   ecart d'un pixel laisse la trame apparaitre entre elles. Resultat : un
+   quadrillage continu, pas une collection de boites flottantes.
+*/
+.grille{display:grid;gap:1px;background:var(--filet-2);
+  border:1px solid var(--filet-2)}
+.grille.deux{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grille.trois{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grille.quatre{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.carte{position:relative;background:var(--papier);
+  padding:clamp(22px,2.3vw,30px);
+  display:flex;flex-direction:column;gap:11px;
+  transition:background-color .14s linear}
+
+/* Hors d'une grille — dans une colonne laterale, par exemple — la cellule
+   n'a plus de trame autour d'elle pour la tenir. Un filet en tete suffit a
+   lui rendre son statut de bloc, sans lui poser de cadre. */
+.carte{border-top:1px solid var(--filet);padding-inline:0}
+.grille .carte{border-top:0;padding-inline:clamp(22px,2.3vw,30px)}
+.jour .carte,.bande.grise .carte{background:var(--papier-2)}
+
+a.carte{text-decoration:none;color:inherit}
+a.carte:hover{background:var(--blanc)}
+.jour a.carte:hover,.bande.grise a.carte:hover{background:var(--blanc)}
+
+/* L'icone n'est plus posee dans une pastille de couleur : elle est simplement
+   dessinee, a la taille d'une ligne de texte, au-dessus du titre. */
+.carte .icone{width:auto;height:auto;background:none;border:0;
+  color:var(--encre);display:block;margin-bottom:4px}
+.carte p{color:var(--encre-2);font-size:.94rem}
+.carte .suite{margin-top:auto;padding-top:12px;align-self:flex-start;
+  border-bottom-color:transparent}
+a.carte:hover .suite{border-bottom-color:var(--encre)}
+
+/* Le fanion « urgence » : un tampon, en chasse fixe, encadre de rouge. */
+.fanion{position:absolute;top:18px;right:18px;
+  padding:3px 8px;border:1px solid var(--rouge);color:var(--rouge);
+  font-family:var(--donnee);font-size:9.5px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase}
+
+/* ═══ les etapes ═════════════════════════════════════════════════════ */
+
+/*
+   Des lignes de bordereau : un numero en chasse fixe dans la marge, un
+   filet entre chaque ligne. L'ancienne version dessinait une frise verticale
+   rayee ; c'etait un ornement, et il n'en reste rien.
+*/
+.etapes{list-style:none;padding:0;margin:0;counter-reset:etape;
+  border-top:1px solid var(--filet)}
+.etape{display:grid;grid-template-columns:auto 1fr;
+  gap:clamp(18px,2.4vw,34px);align-items:start;
+  padding-block:clamp(22px,2.6vw,32px);border-bottom:1px solid var(--filet-2)}
+.etape .rang{font-family:var(--donnee);font-size:.95rem;font-weight:500;
+  color:var(--encre-dim);padding-top:3px;width:2.6em;
+  border:0;background:none;border-radius:0;display:block;height:auto}
+.etape .rang::before{counter-increment:etape;
+  content:counter(etape,decimal-leading-zero)}
+.etape h3{margin-bottom:8px}
+.etape p{color:var(--encre-2)}
+.etape .detail{display:inline-block;margin-top:10px;
+  font-family:var(--donnee);font-size:.82rem;color:var(--encre-dim)}
+.etape .detail::before{content:"↳ "}
+
+/* ═══ l'encart ═══════════════════════════════════════════════════════ */
+
+/* Un bloc cerne d'un filet d'encre. C'est le seul element du site qui
+   s'entoure completement : il sert aux appels, et a rien d'autre. */
+.encart{border:1px solid var(--encre);background:var(--papier);
+  padding:clamp(26px,3.4vw,48px)}
+.encart .rubrique{color:var(--encre-dim)}
+
+/* ═══ le duo texte / telephone ══════════════════════════════════════ */
+
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);
+  gap:clamp(28px,4.4vw,72px);align-items:start}
+.duo.inverse{grid-template-columns:minmax(0,.8fr) minmax(0,1fr)}
+.duo.inverse .duo-texte{order:2}
+.duo-visuel img{width:min(270px,70vw);margin-inline:auto}
+
+/* ═══ l'urgence ══════════════════════════════════════════════════════ */
+
+.urgence-bande{position:relative;background:var(--rouge-fond);
+  border:1px solid var(--rouge);padding:clamp(26px,3.4vw,46px)}
+.urgence-bande h1,.urgence-bande h2{color:var(--rouge)}
+.urgence-bande .lede{color:var(--encre-2)}
+.urgence-bande .rubrique{color:var(--rouge)}
+.urgence-bande .rubrique::after{background:rgba(200,16,46,.28)}
+
+.urgence-metiers{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.urgence-metiers a{display:inline-flex;align-items:center;gap:8px;
+  padding:9px 15px;text-decoration:none;background:var(--blanc);
+  border:1px solid rgba(200,16,46,.35);color:var(--rouge);
+  font-weight:500;font-size:.91rem;
+  transition:background-color .14s linear,color .14s linear}
+.urgence-metiers a:hover{background:var(--rouge);color:#fff;border-color:var(--rouge)}
+
+/* ═══ la FAQ ════════════════════════════════════════════════════════ */
+
+/* Construite sur <details> : elle s'ouvre, se ferme et se parcourt au
+   clavier sans une ligne de script, et son contenu reste dans le document
+   meme replie — donc lisible par un moteur et par une synthese vocale. */
+.faq{border-top:1px solid var(--filet)}
+.qr{border-bottom:1px solid var(--filet-2)}
+.qr summary{list-style:none;cursor:pointer;padding:19px 0;
+  display:flex;align-items:flex-start;gap:16px;
+  font-family:var(--titre);font-size:1.04rem;font-weight:600;
+  color:var(--encre)}
+.qr summary::-webkit-details-marker{display:none}
+.qr summary:hover{color:var(--encre-2)}
+
+/* Le signe est un caractere de chasse fixe, pas un dessin : « + » ferme,
+   « − » ouvert. Deux etats, aucune image, aucune rotation. */
+.qr summary .signe{margin-left:auto;flex:none;
+  font-family:var(--donnee);font-size:1.1rem;font-weight:400;
+  color:var(--encre-dim);line-height:1.3}
+.qr summary .signe::before{content:"+"}
+.qr[open] summary .signe::before{content:"−"}
+.qr .reponse{padding:0 0 22px;color:var(--encre-2);max-width:74ch}
+
+/* L'etiquette de public : une question d'artisan et une question de client
+   ne se repondent pas de la meme facon. */
+.qr .public{flex:none;margin-top:4px;padding:2px 7px;
+  border:1px solid var(--filet);font-family:var(--donnee);font-size:9.5px;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--encre-dim)}
+
+/* ═══ les formulaires ═══════════════════════════════════════════════ */
+
+.form{display:grid;gap:18px}
+.champ{display:grid;gap:7px}
+.champ label{font-family:var(--donnee);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--encre-dim)}
+.champ .aide{font-size:.85rem;color:var(--encre-dim);text-transform:none;
+  letter-spacing:0;font-family:var(--corps)}
+.champ input,.champ textarea,.champ select{
+  width:100%;padding:13px 15px;border-radius:var(--r);
+  background:var(--blanc);border:1px solid var(--filet);
+  color:var(--encre);font:inherit;font-size:1rem;
+  transition:border-color .14s linear}
+.champ textarea{min-height:150px;resize:vertical}
+.champ input:focus,.champ textarea:focus,.champ select:focus{
+  outline:none;border-color:var(--encre);box-shadow:inset 0 0 0 1px var(--encre)}
+.champ input[aria-invalid="true"],.champ textarea[aria-invalid="true"]{
+  border-color:var(--rouge)}
+.champ .erreur{font-size:.86rem;color:var(--rouge);font-weight:500}
+.duo-champs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* Le piege a robots : un champ que personne ne voit et que personne ne
+   tabule. Un formulaire rempli par un script le remplit aussi, et il est
+   ecarte sans captcha, sans service tiers et sans traceur. */
+.abeille{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.message{padding:16px 20px;font-size:.95rem;display:flex;gap:12px;
+  align-items:flex-start;border-left:3px solid var(--encre);
+  background:var(--papier-2)}
+.message.ok{border-left-color:var(--encre)}
+.message.ko{border-left-color:var(--rouge);background:var(--rouge-fond)}
+.message svg{flex:none;margin-top:2px}
+
+/* ═══ les pages legales ═════════════════════════════════════════════ */
+
+/* Une colonne etroite, des titres numerotes en chasse fixe, un filet sous
+   chacun. Ces pages ne sont pas la pour seduire : elles sont la pour etre
+   lues le jour ou quelque chose se passe mal. */
+.legal{max-width:var(--etroit);margin-inline:auto}
+.legal h2{font-size:clamp(1.15rem,1.8vw,1.42rem);
+  margin-top:clamp(34px,3.6vw,48px);margin-bottom:14px;
+  padding-bottom:9px;border-bottom:1px solid var(--encre)}
+.legal h2:first-of-type{margin-top:30px}
+.legal h3{font-size:1.02rem;margin-top:24px;margin-bottom:8px;color:var(--encre-2)}
+.legal p{margin-bottom:14px;color:var(--encre-2)}
+.legal ul{margin:0 0 16px;padding-left:1.1em;color:var(--encre-2)}
+.legal li{margin-bottom:7px}
+.legal a{color:var(--encre);text-decoration:underline;
+  text-decoration-color:var(--filet)}
+.legal a:hover{text-decoration-color:var(--encre)}
+.legal .maj{font-family:var(--donnee);font-size:.82rem;color:var(--encre-dim)}
+
+/* Le releve d'identite : deux colonnes, l'intitule en chasse fixe, un
+   filet par ligne. C'est un extrait de registre, il doit en avoir l'air. */
+.identite{display:grid;grid-template-columns:auto 1fr;gap:0 26px;
+  margin-bottom:22px;border-top:1px solid var(--filet)}
+.identite dt{padding:9px 0;border-bottom:1px solid var(--filet-2);
+  font-family:var(--donnee);font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--encre-dim);
+  white-space:nowrap}
+.identite dd{margin:0;padding:9px 0;border-bottom:1px solid var(--filet-2);
+  color:var(--encre)}
+
+/* ═══ le pied de page ═══════════════════════════════════════════════ */
+
+.pied{border-top:1px solid var(--encre);padding-block:clamp(40px,4.6vw,62px) 26px}
+.piedin{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));
+  gap:clamp(26px,3.4vw,48px)}
+.pied h4{font-family:var(--donnee);font-size:10.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim);
+  margin-bottom:14px}
+.pied ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.pied a{text-decoration:none;font-size:.92rem;color:var(--encre-2)}
+.pied a:hover{color:var(--encre);text-decoration:underline}
+.pied .logo{height:24px;width:auto;color:var(--encre);margin-bottom:16px}
+.pied .signature{font-size:.9rem;max-width:36ch;color:var(--encre-dim)}
+
+.ourlet{margin-top:clamp(32px,3.8vw,50px);padding-top:22px;
+  border-top:1px solid var(--filet-2);
+  display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;
+  font-family:var(--donnee);font-size:.78rem;color:var(--encre-dim)}
+.ourlet .droite{margin-left:auto;display:flex;flex-wrap:wrap;gap:18px}
+.ourlet a{text-decoration:none}
+.ourlet a:hover{color:var(--encre);text-decoration:underline}
+
+/* ═══ divers ════════════════════════════════════════════════════════ */
+
+/* Le lien d'evitement : premier element tabulable de la page, invisible
+   tant qu'il n'a pas le focus. Sans lui, un visiteur au clavier traverse
+   les sept liens du bandeau a chaque page. */
+.evitement{position:absolute;left:-9999px;z-index:100;padding:12px 20px;
+  background:var(--encre);color:var(--papier);font-weight:600;
+  text-decoration:none}
+.evitement:focus{left:0;top:0}
+
+.ariane{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  font-family:var(--donnee);font-size:.78rem;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--encre-dim);margin-bottom:20px}
+.ariane a{color:var(--encre-dim);text-decoration:none}
+.ariane a:hover{color:var(--encre);text-decoration:underline}
+
+/* Une liste a puces dont la puce est un filet court : le meme trait que
+   partout ailleurs, a l'echelle d'une ligne. */
+.puces{list-style:none;padding:0;margin:0;display:grid;gap:11px}
+.puces li{display:grid;grid-template-columns:20px 1fr;gap:12px;
+  align-items:start;color:var(--encre-2)}
+.puces li svg{color:var(--encre);margin-top:3px;flex:none}
+
+/* Les jetons sont des cases de formulaire, pas des pastilles. */
+.jetons{display:flex;flex-wrap:wrap;gap:0;
+  border-top:1px solid var(--filet);border-left:1px solid var(--filet-2)}
+.jeton{padding:10px 16px;font-size:.9rem;color:var(--encre-2);
+  text-decoration:none;border-right:1px solid var(--filet-2);
+  border-bottom:1px solid var(--filet-2);flex:1 0 auto;text-align:center}
+a.jeton:hover{background:var(--encre);color:var(--papier)}
+
+/* ═══ la fenetre etroite ════════════════════════════════════════════ */
+
+@media (max-width:1060px){
+  .preuves{grid-template-columns:repeat(2,1fr);
+    border-bottom:1px solid var(--filet)}
+  .preuve{border-top:1px solid var(--filet-2)}
+  .preuve:nth-child(odd){border-left:0;padding-left:0}
+  .preuve:nth-child(-n+2){border-top:0}
+  .grille.quatre,.grille.trois{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .piedin{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:900px){
+  /* Le menu devient un panneau. Il n'est pas retire du document : il est
+     deplie par le bouton, qui porte aria-expanded, et le script ne fait
+     que basculer cet attribut. */
+  .menu{position:fixed;inset:68px 0 auto 0;flex-direction:column;
+    align-items:stretch;gap:0;margin:0;padding:8px var(--gout) 24px;
+    background:var(--papier);border-bottom:1px solid var(--encre);
+    max-height:calc(100dvh - 68px);overflow-y:auto;
+    visibility:hidden;opacity:0}
+  .menu.ouvert{visibility:visible;opacity:1}
+  .menu a{padding:14px 0;font-size:1.02rem;border-bottom:1px solid var(--filet-2)}
+  .menu a[aria-current]{border-bottom-color:var(--encre)}
+  .menu .btn{display:inline-flex;margin-top:18px}
+  .burger{display:inline-flex}
+  .navcta .btn:not(.burger){display:none}
+
+  .heroin{grid-template-columns:1fr}
+  .hero-visuel{order:-1;margin-bottom:10px}
+  .hero-visuel img{width:min(230px,56vw)}
+  .duo,.duo.inverse{grid-template-columns:1fr}
+  .duo.inverse .duo-texte{order:0}
+  .duo-visuel{margin-top:8px}
+}
+
+@media (max-width:680px){
+  body{font-size:16px}
+  .preuves{grid-template-columns:1fr}
+  .preuve{border-left:0;padding-left:0}
+  .preuve:first-child{border-top:0}
+  .grille.deux,.grille.trois,.grille.quatre{grid-template-columns:1fr}
+  .piedin{grid-template-columns:1fr;gap:30px}
+  .duo-champs{grid-template-columns:1fr}
+  .etape{grid-template-columns:auto 1fr;gap:14px}
+  .ourlet .droite{margin-left:0;width:100%}
+  .identite{grid-template-columns:1fr;gap:0}
+  .identite dt{border-bottom:0;padding-bottom:0}
+  .identite dd{padding-top:2px}
+  .btns .btn{width:100%}
+  .jeton{flex:1 0 100%;text-align:left}
+}
+
+/* Le site ne comporte aucune animation d'apparition ni aucun mouvement
+   decoratif : il n'y a donc rien a desactiver ici, sinon les quelques
+   transitions de survol. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important}
+}
+
+/* Impression : les pages legales sont faites pour etre imprimees, c'est
+   souvent la premiere chose qu'on fait d'une condition generale. Le site
+   etant deja encre sur papier, il n'y a presque rien a corriger. */
+@media print{
+  .nav,.pied,.evitement,.btns,.stores{display:none!important}
+  body{background:#fff;font-size:11pt}
+  .bande{padding-block:0;border:0}
+  .legal{max-width:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+}
