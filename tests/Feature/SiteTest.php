@@ -177,4 +177,31 @@ class SiteTest extends TestCase
             $vues[] = $m[1];
         }
     }
+
+    /**
+     * La feuille de polices declare des chemins RELATIFS.
+     *
+     * Ce test existe parce que le bug s'est produit : les chemins etaient
+     * ecrits « /fonts/archivo-latin.woff2 », ce qui ne vaut que si le site
+     * occupe la racine du domaine. Sous XAMPP, il est servi depuis
+     * /crafterlity/public/ et les cinq fichiers repondaient 404 — sans la
+     * moindre erreur visible, la page basculant sur les polices du systeme.
+     */
+    public function test_les_polices_ont_des_chemins_relatifs(): void
+    {
+        $css = file_get_contents(public_path('fonts/fonts.css'));
+
+        $this->assertStringNotContainsString(
+            'url("/',
+            $css,
+            'Un chemin absolu casse les polices des que le site vit dans un sous-repertoire.'
+        );
+
+        preg_match_all('/url\("([^"]+)"\)/', $css, $trouves);
+        $this->assertNotEmpty($trouves[1], 'Aucune police declaree.');
+
+        foreach ($trouves[1] as $fichier) {
+            $this->assertFileExists(public_path('fonts/'.$fichier));
+        }
+    }
 }

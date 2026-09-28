@@ -26,6 +26,13 @@
  * pas charges, ils tripleraient le poids pour des caracteres que ce site
  * n'ecrit jamais.
  *
+ * Les chemins sont RELATIFS, pas absolus. Cette feuille vit dans le meme
+ * dossier que les cinq fichiers : « archivo-latin.woff2 » les trouve que le
+ * site occupe la racine du domaine ou un sous-repertoire — ce qui est le cas
+ * sous XAMPP, ou il est servi depuis /crafterlity/public/. Avec un chemin
+ * absolu, les polices repondaient 404 et la page basculait silencieusement
+ * sur celles du systeme.
+ *
  * font-display:swap — le texte s'affiche immediatement dans la police du
  * systeme puis bascule. Sur une page ou l'on vient chercher un numero de
  * telephone en urgence, attendre une police est inacceptable.
@@ -36,7 +43,7 @@
   font-style:normal;
   font-weight:400 800;
   font-display:swap;
-  src:url("/fonts/archivo-latin.woff2") format("woff2");
+  src:url("archivo-latin.woff2") format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
     U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
     U+2212,U+2215,U+FEFF,U+FFFD;
@@ -47,7 +54,7 @@
   font-style:normal;
   font-weight:300 700;
   font-display:swap;
-  src:url("/fonts/inter-latin.woff2") format("woff2");
+  src:url("inter-latin.woff2") format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
     U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
     U+2212,U+2215,U+FEFF,U+FFFD;
@@ -58,7 +65,7 @@
   font-style:normal;
   font-weight:400;
   font-display:swap;
-  src:url("/fonts/plexmono-400-latin.woff2") format("woff2");
+  src:url("plexmono-400-latin.woff2") format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
     U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
     U+2212,U+2215,U+FEFF,U+FFFD;
@@ -69,7 +76,7 @@
   font-style:normal;
   font-weight:500;
   font-display:swap;
-  src:url("/fonts/plexmono-500-latin.woff2") format("woff2");
+  src:url("plexmono-500-latin.woff2") format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
     U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
     U+2212,U+2215,U+FEFF,U+FFFD;
@@ -81,6 +88,6 @@
   font-style:normal;
   font-weight:800;
   font-display:block;
-  src:url("/fonts/outfit-latin.woff2") format("woff2");
+  src:url("outfit-latin.woff2") format("woff2");
   unicode-range:U+0061,U+0063,U+0065,U+0066,U+0069,U+006C,U+0072,U+0074,U+0079;
 }

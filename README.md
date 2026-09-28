@@ -34,19 +34,33 @@ Ce qui manquait, et que ce projet apporte :
 ```bash
 composer install
 npm install
-cp .env.example .env
+copy .env.example .env
 php artisan key:generate
 php artisan migrate
 npm run build
 php artisan serve
 ```
 
+Le projet vise **PHP 8.2**, la version livrée avec XAMPP — celle qu'Apache
+utilisera. Si `php -v` affiche autre chose dans votre terminal, c'est qu'un
+autre binaire passe devant dans le `PATH` (Herd, par exemple) : appelez alors
+`C:\xampp\php\php.exe` explicitement.
+
 Base SQLite par défaut : aucun serveur de base de données à installer.
 
-```bash
-php artisan test     # 12 tests, 182 assertions
+Le site fonctionne aussi tel quel derrière Apache, à
+`http://localhost/crafterlity/public/`. Les chemins d'assets et de polices
+sont relatifs : ils valent à la racine d'un domaine comme dans un
+sous-répertoire.
+
+```powershell
+php artisan test     # 13 tests
 npm run dev          # rechargement à chaud pendant le développement
 ```
+
+> PowerShell n'accepte pas `&&` comme séparateur d'instructions : écrivez
+> `cd chemin` puis `php artisan serve` sur deux lignes, ou séparez-les
+> par `;`.
 
 ---
 
@@ -127,7 +141,7 @@ contourne la lunette de l'appareil au lieu de la manger.
 
 ## Choix techniques
 
-- **Laravel 13**, PHP 8.2+, SQLite.
+- **Laravel 12**, PHP 8.2, SQLite — la version de XAMPP.
 - **Pas de Tailwind.** La charte tient en 700 lignes de CSS écrites à la main
   et lues d'un bout à l'autre. Sur un site d'une vingtaine de pages qui
   partagent dix composants, un cadre utilitaire ajoute une dépendance et une
