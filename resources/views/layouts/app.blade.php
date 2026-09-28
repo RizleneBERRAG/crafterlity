@@ -45,7 +45,7 @@
           href="{{ asset('fonts/plexmono-400-latin.woff2') }}">
     <link rel="stylesheet" href="{{ asset('fonts/fonts.css') }}">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/mouvement.css', 'resources/js/app.js'])
 
     {{--
         La carte d'identite de l'entreprise, en donnees structurees. C'est

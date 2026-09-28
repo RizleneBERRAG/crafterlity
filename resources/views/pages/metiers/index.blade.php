@@ -5,7 +5,7 @@
 
 @section('contenu')
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <nav class="ariane" aria-label="Fil d'Ariane">
             <a href="{{ route('accueil') }}">Accueil</a>
@@ -19,12 +19,23 @@
             charge, décrites avec les mots qu'on emploie quand on appelle,
             pas avec ceux d'un devis.
         </x-chapitre>
+
+        {{-- Deux chiffres, et ils sont vrais : ils sont comptes dans le
+             catalogue, pas saisis a la main. Ils defilent a l'arrivee dans
+             le champ de vision — un compteur mecanique, pas un effet. --}}
+        <p class="releve mono">
+            <span data-compteur>{{ count($metiers) }}</span> métiers couverts
+            <span class="releve-sep" aria-hidden="true">·</span>
+            <span data-compteur>{{ collect($metiers)->sum(fn ($m) => count($m['besoins'])) }}</span> interventions référencées
+            <span class="releve-sep" aria-hidden="true">·</span>
+            <span data-compteur>{{ collect($metiers)->where('urgence', true)->count() }}</span> métiers en urgence
+        </p>
     </div>
 </section>
 
-<section class="bande jour serree">
+<section class="bande jour serree" data-anime>
     <div class="wrap large">
-        <div class="grille trois">
+        <div class="grille trois" data-filtre>
             @foreach($metiers as $metier)
                 <x-carte-metier :metier="$metier" />
             @endforeach

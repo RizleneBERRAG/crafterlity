@@ -1,6 +1,7 @@
 @props(['metier'])
 
-<a class="carte" href="{{ route('metiers.show', $metier['slug']) }}">
+<a class="carte" href="{{ route('metiers.show', $metier['slug']) }}"
+   data-recherche="{{ $metier['nom'] }} {{ $metier['requete'] }} {{ $metier['resume'] }} {{ implode(' ', $metier['besoins']) }}">
     @if($metier['urgence'])
         {{-- Le fanion ne se pose que sur les metiers qui acceptent
              reellement l'intervention immediate. L'afficher partout le

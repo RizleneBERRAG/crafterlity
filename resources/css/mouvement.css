@@ -1,0 +1,329 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Crafterlity — le mouvement, et les blocs qui bougent
+
+   Second volet de la charte « Bon d'intervention ». Le premier fichier
+   pose la matiere : papier, encre, filets, chasse fixe. Celui-ci pose ce
+   qui se passe quand le visiteur arrive, lit et agit.
+
+   LA REGLE, EN UNE PHRASE : un document se remplit, il ne flotte pas.
+
+   Concretement, tout mouvement de ce site appartient a l'une de ces
+   quatre familles, et a aucune autre :
+
+     LE TRACE     un filet passe de rien a toute sa longueur (scaleX)
+     LA FRAPPE    un texte s'ecrit caractere par caractere
+     LE DEFILE    un nombre monte jusqu'a sa valeur
+     L'IMPRESSION un bloc se decouvre du haut vers le bas, sans fondu
+
+   Ce qui est banni : le rebond, le fondu enchaine, le zoom, la rotation
+   decorative, le flottement, le parallaxe. Chacun de ces effets dit
+   « site vitrine animé » ; aucun ne dit « intervention en cours ».
+
+   Les durees tiennent entre 200 et 400 ms, et les courbes sont presque
+   lineaires. Une machine n'a pas d'elan.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══ l'impression des blocs ═════════════════════════════════════════
+
+   L'etat de depart est pose par le SCRIPT (classe « avant »), jamais par
+   cette feuille. Sans JavaScript, aucun bloc n'est jamais masque — ce qui
+   est la seule facon acceptable d'animer une apparition. */
+
+[data-anime].avant{
+  opacity:0;
+  transform:translateY(8px);
+}
+[data-anime].vu{
+  opacity:1;
+  transform:none;
+  transition:opacity .26s linear,transform .3s cubic-bezier(.2,.6,.3,1);
+}
+
+/* Le filet d'en-tete se trace de gauche a droite. C'est le mouvement le
+   plus proche du parti du site : le trait EST le motif, et on le voit
+   s'ecrire. */
+[data-anime].avant .ref::after{transform:scaleX(0)}
+[data-anime] .ref::after{transform-origin:left center;
+  transition:transform .42s cubic-bezier(.2,.7,.3,1) .08s}
+[data-anime].vu .ref::after{transform:scaleX(1)}
+
+/* Les cellules d'une grille se decouvrent l'une apres l'autre. Le retard
+   est minime — 45 ms — parce qu'au-dela on attend, et qu'attendre une
+   grille de services est absurde. */
+[data-anime].avant .carte{opacity:0;transform:translateY(6px)}
+[data-anime].vu .carte{opacity:1;transform:none;
+  transition:opacity .24s linear,transform .28s cubic-bezier(.2,.6,.3,1)}
+[data-anime].vu .carte:nth-child(2){transition-delay:.045s}
+[data-anime].vu .carte:nth-child(3){transition-delay:.09s}
+[data-anime].vu .carte:nth-child(4){transition-delay:.135s}
+[data-anime].vu .carte:nth-child(5){transition-delay:.18s}
+[data-anime].vu .carte:nth-child(6){transition-delay:.225s}
+
+/* ═══ la jauge de lecture ════════════════════════════════════════════
+   Un filet d'encre sur le bord bas du bandeau, rempli par la position de
+   la page. Purement indicatif — et c'est encore le meme trait. */
+
+#jauge{position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--encre);transform:scaleX(0);transform-origin:left center;
+  will-change:transform;pointer-events:none}
+
+/* ═══ la reference courante, dans le bandeau ═════════════════════════
+   « REF. 03 — L'URGENCE ». Le bandeau dit ou l'on se trouve, et le motif
+   identitaire du site devient un reperage. */
+
+#nav-ref{display:none;margin-left:20px;padding-left:20px;
+  border-left:1px solid var(--filet-2);
+  font-family:var(--donnee);font-size:10.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--encre-dim);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:22ch;
+  opacity:0;transition:opacity .2s linear}
+#nav-ref.visible{opacity:1}
+@media (min-width:1180px){ #nav-ref{display:block} }
+
+/* ═══ le filtre des metiers ══════════════════════════════════════════
+   Ajoute par le script : sans JavaScript il n'existe pas, et la liste
+   complete reste consultable. Un filtre mort est pire que pas de filtre. */
+
+.filtre{display:flex;align-items:center;gap:14px;
+  margin-bottom:22px;padding-bottom:14px;
+  border-bottom:1px solid var(--filet)}
+.filtre-label{font-size:10.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--encre-dim);flex:none}
+.filtre-champ{flex:1;min-width:0;padding:10px 0;border:0;background:none;
+  font:inherit;font-size:1.02rem;color:var(--encre)}
+.filtre-champ::placeholder{color:var(--encre-dim);opacity:.75}
+.filtre-champ:focus{outline:none}
+/* Le focus se marque sur la BARRE, pas sur le champ : c'est la ligne
+   entiere qui devient active, comme un champ de formulaire administratif. */
+.filtre:focus-within{border-bottom-color:var(--encre)}
+.filtre-compte{flex:none;font-size:.8rem;color:var(--encre-dim)}
+
+.grille.vide{border-color:transparent}
+.grille.vide::after{content:"Aucun service ne correspond. Essayez « fuite », « porte », « peinture ».";
+  grid-column:1/-1;background:var(--papier);padding:34px;
+  color:var(--encre-dim);font-size:.94rem;text-align:center}
+
+/* ═══ les onglets de captures ════════════════════════════════════════
+   Un telephone, quatre ecrans. Les images sont toutes dans le document ;
+   le script les empile et ajoute les onglets. */
+
+.onglets{display:flex;flex-wrap:wrap;gap:0;margin-bottom:20px;
+  border-bottom:1px solid var(--filet)}
+.onglet{padding:9px 14px;border:0;background:none;cursor:pointer;
+  font-family:var(--donnee);font-size:10.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--encre-dim);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .16s linear,border-color .16s linear}
+.onglet:hover{color:var(--encre)}
+.onglet[aria-selected="true"]{color:var(--encre);border-bottom-color:var(--encre)}
+
+.avec-onglets [data-vue]{display:none}
+.avec-onglets [data-vue].active{display:block}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LE SIMULATEUR
+
+   Le seul endroit du site ou le visiteur fait quelque chose au lieu de
+   lire. Il reprend la forme du reste — filets, chasse fixe, angles vifs —
+   parce qu'il ne doit pas avoir l'air d'un gadget pose sur la page, mais
+   d'un formulaire du document.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.simu{border:1px solid var(--encre);background:var(--papier)}
+
+.simu-tete{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;
+  padding:18px clamp(18px,2.2vw,28px);border-bottom:1px solid var(--filet)}
+.simu-tete .ref{margin-bottom:0;flex:none}
+.simu-tete .ref::after{display:none}
+.simu-avis{flex:1;min-width:24ch;font-size:.83rem;line-height:1.45}
+
+.simu-corps{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)}
+
+.simu-form{padding:clamp(18px,2.2vw,28px);
+  border-right:1px solid var(--filet);display:flex;flex-direction:column;gap:26px}
+.simu-sortie{padding:clamp(18px,2.2vw,28px);min-height:340px;
+  display:flex;flex-direction:column;gap:14px}
+
+.simu-legende{display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  font-family:var(--donnee);font-size:10.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
+.simu-legende .n{color:var(--encre)}
+
+/* ── les jetons de choix ────────────────────────────────────────────
+   Des cases a cocher rectangulaires, pas des pastilles. Le choix actif
+   s'inverse en plein : c'est la facon la plus nette de dire « c'est
+   celui-la » sans ajouter de couleur. */
+.simu-metiers,.simu-villes{display:flex;flex-wrap:wrap;gap:6px}
+.simu-jeton{display:inline-block;padding:7px 12px;
+  border:1px solid var(--filet);background:var(--blanc);
+  color:var(--encre-2);font-size:.88rem;text-decoration:none;cursor:pointer;
+  font-family:var(--corps);
+  transition:border-color .14s linear,background-color .14s linear,color .14s linear}
+.simu-jeton:hover{border-color:var(--encre);color:var(--encre)}
+.simu-jeton.actif{background:var(--encre);border-color:var(--encre);color:var(--papier)}
+
+/* ── le champ qui se remplit tout seul ──────────────────────────────
+   Le curseur ne clignote que pendant la frappe. Un curseur qui clignote
+   dans un champ inerte est un curseur qui ment. */
+.simu-champ{min-height:84px;padding:13px 15px;background:var(--blanc);
+  border:1px solid var(--filet);font-size:.96rem;line-height:1.5;
+  color:var(--encre-2)}
+.simu-champ.frappe::after{content:"";display:inline-block;width:2px;height:1.05em;
+  margin-left:2px;background:var(--encre);vertical-align:-.16em;
+  animation:curseur 1s steps(1,end) infinite}
+@keyframes curseur{50%{opacity:0}}
+
+/* ── la case a cocher ───────────────────────────────────────────────
+   Dessinee, parce que la case native ne se met pas a la charte et que
+   celle-ci doit pouvoir porter la coche en encre. L'input reste dans le
+   document, il est seulement masque : le clavier et les synthese vocales
+   continuent de le voir. */
+.simu-bascule{display:flex;align-items:flex-start;gap:10px;margin-top:14px;
+  font-size:.9rem;color:var(--encre-2);cursor:pointer;user-select:none}
+.simu-bascule input{position:absolute;opacity:0;width:0;height:0}
+.simu-case{flex:none;width:17px;height:17px;margin-top:1px;
+  border:1px solid var(--encre);background:var(--blanc);position:relative;
+  transition:background-color .14s linear}
+.simu-case::after{content:"";position:absolute;inset:3px 3px auto 3px;height:5px;
+  border-left:2px solid var(--papier);border-bottom:2px solid var(--papier);
+  transform:rotate(-45deg) scale(0);transform-origin:center;
+  transition:transform .16s cubic-bezier(.2,.7,.3,1)}
+.simu-bascule input:checked ~ .simu-case{background:var(--encre)}
+.simu-bascule input:checked ~ .simu-case::after{transform:rotate(-45deg) scale(1)}
+.simu-bascule input:focus-visible ~ .simu-case{outline:2px solid var(--encre);outline-offset:2px}
+.simu-bascule.inactif{opacity:.4;cursor:not-allowed}
+
+.simu-publier{margin-top:16px;align-self:flex-start}
+.simu-reprendre{align-self:flex-start;margin-top:auto;padding:0;border:0;
+  background:none;cursor:pointer;font-family:var(--donnee);font-size:.78rem;
+  letter-spacing:.06em;color:var(--encre-dim);text-decoration:underline;
+  text-underline-offset:3px}
+.simu-reprendre:hover{color:var(--encre)}
+
+.simu-vide{color:var(--encre-dim)}
+
+/* ── la recherche ───────────────────────────────────────────────────
+   La barre rayee vient de l'application : c'est son seul ornement, et il
+   dit « quelque chose est en route ». Les rayures defilent tant que la
+   recherche dure, puis se figent. */
+.simu-recherche{display:flex;flex-direction:column;gap:9px}
+.simu-barre{height:6px;background:var(--papier-3);overflow:hidden}
+.simu-barre span{display:block;height:100%;background:var(--rayures);
+  background-size:26px 100%;animation:defile .55s linear infinite}
+.simu-barre.fini span{animation:none;background:var(--rayures-pale)}
+@keyframes defile{to{background-position:26px 0}}
+.simu-etat{font-size:.82rem;color:var(--encre-dim)}
+
+/* ── les offres ─────────────────────────────────────────────────────
+   Chaque offre s'imprime du haut vers le bas : un volet qui se leve, pas
+   un fondu. C'est le mouvement d'une ligne qui sort d'une imprimante. */
+.simu-offres{display:flex;flex-direction:column;
+  border-top:1px solid var(--filet)}
+
+.simu-offre{display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto auto;
+  gap:14px;align-items:center;padding:15px 0;
+  border-bottom:1px solid var(--filet-2);
+  animation:imprime .3s cubic-bezier(.2,.7,.3,1) both}
+@keyframes imprime{
+  from{clip-path:inset(0 0 100% 0);transform:translateY(-5px)}
+  to{clip-path:inset(0 0 0 0);transform:none}}
+
+.simu-rang{font-size:.82rem;color:var(--encre-dim);flex:none}
+.simu-nom{font-family:var(--titre);font-weight:600;font-size:1rem}
+.simu-ent{font-weight:400;color:var(--encre-dim)}
+/* Chaque element de la ligne reste d'un bloc : sans ca, « 0,9 km » se
+   coupait entre le nombre et l'unite au premier retour a la ligne. Le
+   point separateur est pose en CSS, il n'a pas a exister dans le texte. */
+/* Chaque element reste d'un bloc : sans ca, « 0,9 km » se coupait entre le
+   nombre et l'unite au premier retour a la ligne. Pas de point separateur :
+   sur deux lignes, il se retrouvait orphelin en debut de seconde ligne.
+   L'ecart de la chasse fixe suffit a separer. */
+.simu-meta{display:flex;flex-wrap:wrap;gap:2px 15px;
+  font-size:.76rem;color:var(--encre-dim);margin-top:4px}
+.simu-meta > span{white-space:nowrap}
+/* La mention de verification est ce qui distingue Crafterlity d'une petite
+   annonce. Elle est donc en encre pleine, pas en gris. */
+.simu-verif{color:var(--encre);font-weight:500}
+.simu-prix{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
+.simu-montant{font-size:1.06rem;font-weight:500}
+.simu-quand{font-size:.74rem;color:var(--encre-dim);white-space:nowrap}
+.simu-accepter{flex:none}
+
+/* ── le suivi ───────────────────────────────────────────────────────── */
+.simu-suivi{display:flex;flex-direction:column;gap:6px;
+  animation:imprime .3s cubic-bezier(.2,.7,.3,1) both}
+.simu-trajet{margin:18px 0 6px}
+.simu-rail{height:8px;background:var(--papier-3);overflow:hidden}
+/* La largeur est animee par une TRANSITION, que le script se contente de
+   declencher. Une transition continue de courir quand l'onglet passe a
+   l'arriere-plan, la ou une boucle d'images est mise en pause — et le
+   suivi se figeait alors pour de bon. */
+.simu-rail span{display:block;height:100%;width:0;background:var(--rayures);
+  background-size:26px 100%;animation:defile .55s linear infinite}
+.simu-eta{margin-top:9px;font-size:.84rem;color:var(--encre)}
+
+/* Les jalons : une liste qui se coche. Le trait vertical qui les relie est
+   le meme filet que partout ailleurs. */
+.simu-jalons{list-style:none;padding:0;margin:14px 0 0;
+  border-left:1px solid var(--filet);padding-left:18px;
+  display:flex;flex-direction:column;gap:9px}
+.simu-jalons li{position:relative;font-size:.88rem;color:var(--encre-dim);
+  transition:color .2s linear}
+.simu-jalons li::before{content:"";position:absolute;left:-23px;top:.42em;
+  width:9px;height:9px;border:1px solid var(--filet);background:var(--papier);
+  transition:background-color .2s linear,border-color .2s linear}
+.simu-jalons li.fait{color:var(--encre);font-weight:500}
+.simu-jalons li.fait::before{background:var(--encre);border-color:var(--encre)}
+
+.simu-paiement{margin-top:16px;padding:11px 14px;font-size:.8rem;
+  background:var(--papier-2);border-left:3px solid var(--encre);
+  color:var(--encre);animation:imprime .3s cubic-bezier(.2,.7,.3,1) both}
+
+/* ═══ la fenetre etroite ════════════════════════════════════════════ */
+
+@media (max-width:900px){
+  .simu-corps{grid-template-columns:1fr}
+  .simu-form{border-right:0;border-bottom:1px solid var(--filet)}
+  .simu-sortie{min-height:0}
+  .simu-offre{grid-template-columns:auto minmax(0,1fr);
+    grid-template-areas:"rang qui" ". prix" ". action";gap:8px 14px}
+  .simu-rang{grid-area:rang}
+  .simu-qui{grid-area:qui}
+  .simu-prix{grid-area:prix;align-items:flex-start;flex-direction:row;gap:12px}
+  .simu-accepter{grid-area:action;justify-self:start;margin-top:4px}
+}
+
+@media (max-width:680px){
+  .filtre{flex-wrap:wrap;gap:8px 12px}
+  .filtre-champ{flex:1 0 100%;order:3}
+  .simu-tete{flex-direction:column;gap:8px}
+}
+
+/* ═══ le mouvement reduit ════════════════════════════════════════════
+
+   Tout s'arrete. Rien ne disparait : les blocs animes sont visibles, les
+   barres sont pleines, les jalons sont coches. C'est la seule facon de
+   faire — une information qui n'existe que dans une animation n'existe
+   pas pour tout le monde. */
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important}
+  [data-anime].avant,[data-anime].avant .carte{opacity:1;transform:none}
+  [data-anime].avant .ref::after{transform:scaleX(1)}
+  .simu-barre span,.simu-rail span{animation:none}
+  .simu-champ.frappe::after{animation:none}
+}
+
+/* ═══ le releve chiffre ══════════════════════════════════════════════
+   Les chiffres du site sont comptes dans le catalogue, jamais saisis a la
+   main : ils ne peuvent donc pas mentir, et ils restent justes le jour ou
+   un metier s'ajoute. Ils defilent a l'arrivee dans le champ de vision. */
+
+.releve{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;
+  margin-top:22px;padding-top:16px;border-top:1px solid var(--filet);
+  font-size:.86rem;color:var(--encre-dim)}
+.releve [data-compteur]{font-size:1.15rem;font-weight:500;color:var(--encre)}
+.releve-sep{color:var(--filet);padding-inline:2px}

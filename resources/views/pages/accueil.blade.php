@@ -111,9 +111,26 @@
     </div>
 </section>
 
+{{-- ═══ le simulateur ══════════════════════════════════════════════
+     Place en deuxieme position, avant meme le catalogue : un visiteur qui
+     a publie une demande fictive et vu trois offres arriver a compris le
+     produit. Aucun paragraphe ne fait ca. --}}
+
+<section class="bande" data-anime>
+    <div class="wrap">
+        <x-chapitre rubrique="Essayez" titre="Publiez une demande, ici, tout de suite">
+            Choisissez un métier, regardez les propositions arriver, acceptez-en
+            une et suivez le trajet. C'est le parcours exact de l'application,
+            sans rien installer.
+        </x-chapitre>
+
+        <x-simulateur />
+    </div>
+</section>
+
 {{-- ═══ les services ═══════════════════════════════════════════════ --}}
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap large">
         <x-chapitre rubrique="Les services" titre="Ce pour quoi on nous appelle">
             Dix métiers couverts, du dégât des eaux à six heures du matin à la
@@ -137,7 +154,7 @@
 
 {{-- ═══ la methode ═════════════════════════════════════════════════ --}}
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo">
             <div class="duo-texte">
@@ -149,12 +166,39 @@
                 <x-etapes :etapes="$etapes" />
             </div>
 
-            <div class="duo-visuel">
-                <img src="{{ asset('images/app-categories.webp') }}"
-                     srcset="{{ asset('images/app-categories.webp') }} 620w, {{ asset('images/app-categories@2x.webp') }} 1240w"
-                     sizes="(max-width: 920px) 72vw, 300px"
-                     width="620" height="962" loading="lazy"
-                     alt="L'accueil de l'application : l'adresse d'intervention en haut, un bandeau rouge « Besoin d'aide en urgence ? », puis les catégories les plus recherchées — électricité, plomberie, serrurerie.">
+            {{-- Quatre ecrans, un seul telephone. Les quatre images sont dans
+                 le document des le depart : sans script, on les voit toutes,
+                 les unes sous les autres. Le script les empile et ajoute les
+                 onglets. --}}
+            <div class="duo-visuel" data-onglets>
+                <div data-vue="Accueil">
+                    <img src="{{ asset('images/app-categories.webp') }}"
+                         srcset="{{ asset('images/app-categories.webp') }} 620w, {{ asset('images/app-categories@2x.webp') }} 1240w"
+                         sizes="(max-width: 920px) 72vw, 300px"
+                         width="620" height="962" loading="lazy"
+                         alt="L'accueil de l'application : l'adresse d'intervention en haut, un bandeau rouge « Besoin d'aide en urgence ? », puis les catégories les plus recherchées — électricité, plomberie, serrurerie.">
+                </div>
+                <div data-vue="Urgence">
+                    <img src="{{ asset('images/app-urgence.webp') }}"
+                         srcset="{{ asset('images/app-urgence.webp') }} 620w, {{ asset('images/app-urgence@2x.webp') }} 1240w"
+                         sizes="(max-width: 920px) 72vw, 300px"
+                         width="620" height="880" loading="lazy"
+                         alt="Le panneau « Obtenir une intervention d'urgence », avec trois entrées : urgence électrique, urgence de plomberie, urgence en serrurerie.">
+                </div>
+                <div data-vue="Suivi">
+                    <img src="{{ asset('images/app-suivi.webp') }}"
+                         srcset="{{ asset('images/app-suivi.webp') }} 620w, {{ asset('images/app-suivi@2x.webp') }} 1240w"
+                         sizes="(max-width: 920px) 72vw, 300px"
+                         width="620" height="1032" loading="lazy"
+                         alt="Le suivi d'une intervention : une carte, l'heure d'arrivée estimée et la fiche du technicien.">
+                </div>
+                <div data-vue="Compte">
+                    <img src="{{ asset('images/app-accueil.webp') }}"
+                         srcset="{{ asset('images/app-accueil.webp') }} 620w, {{ asset('images/app-accueil@2x.webp') }} 1240w"
+                         sizes="(max-width: 920px) 72vw, 300px"
+                         width="620" height="1030" loading="lazy"
+                         alt="L'écran d'accueil de l'application, avec les deux entrées client et professionnel.">
+                </div>
             </div>
         </div>
     </div>
@@ -162,7 +206,7 @@
 
 {{-- ═══ l'urgence ══════════════════════════════════════════════════ --}}
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <div class="urgence-bande">
             <span class="ref">Intervention d'urgence</span>
@@ -196,7 +240,7 @@
 
 {{-- ═══ le suivi ═══════════════════════════════════════════════════ --}}
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo inverse">
             <div class="duo-visuel">
@@ -238,7 +282,7 @@
 
 {{-- ═══ les artisans ═══════════════════════════════════════════════ --}}
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <div class="duo">
             <div class="duo-texte">
@@ -287,7 +331,7 @@
 
 {{-- ═══ les questions ══════════════════════════════════════════════ --}}
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Questions fréquentes" titre="Ce qu'on nous demande le plus souvent" centre>
             Les réponses aux questions des particuliers. Les artisans

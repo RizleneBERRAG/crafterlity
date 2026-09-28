@@ -23,7 +23,7 @@
 
 @section('contenu')
 
-<section class="bande serree">
+<section class="bande serree" data-anime>
     <div class="wrap">
         <nav class="ariane" aria-label="Fil d'Ariane">
             <a href="{{ route('accueil') }}">Accueil</a>
@@ -40,7 +40,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div style="max-width:900px;margin-inline:auto">
 
@@ -54,7 +54,7 @@
     </div>
 </section>
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap" style="text-align:center">
         <x-chapitre rubrique="Vous n'avez pas trouvé" titre="Posez-nous la question" centre>
             Une question sans réponse ici est une question mal anticipée de

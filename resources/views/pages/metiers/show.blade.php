@@ -36,7 +36,7 @@
 
 @section('contenu')
 
-<section class="bande">
+<section class="bande" data-anime>
 
     <div class="wrap" style="position:relative;z-index:1">
         <nav class="ariane" aria-label="Fil d'Ariane">
@@ -72,7 +72,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo">
             <div class="duo-texte">
@@ -105,7 +105,7 @@
     </div>
 </section>
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Comment ça se passe"
                     titre="De la demande à l'intervention" centre>
@@ -118,7 +118,7 @@
     </div>
 </section>
 
-<section class="bande jour serree">
+<section class="bande jour serree" data-anime>
     <div class="wrap large">
         <x-chapitre rubrique="Les autres services" titre="On intervient aussi pour" centre />
 

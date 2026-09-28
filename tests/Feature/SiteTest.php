@@ -204,4 +204,63 @@ class SiteTest extends TestCase
             $this->assertFileExists(public_path('fonts/'.$fichier));
         }
     }
+
+    /**
+     * Chaque metier a de quoi alimenter le simulateur.
+     *
+     * Le simulateur lit config/simulation.php par le slug du metier choisi.
+     * Un metier ajoute au catalogue sans exemple ni offres ferait tomber le
+     * script sur un « undefined » au premier clic — et la panne serait
+     * silencieuse, puisqu'elle ne casse aucune page cote serveur.
+     */
+    public function test_le_simulateur_couvre_tous_les_metiers(): void
+    {
+        $exemples = config('simulation.exemples');
+        $offres = config('simulation.offres');
+
+        foreach (config('metiers') as $metier) {
+            $slug = $metier['slug'];
+
+            $this->assertArrayHasKey($slug, $exemples, "Aucune description d'exemple pour « {$slug} ».");
+            $this->assertNotEmpty($exemples[$slug]);
+
+            $this->assertArrayHasKey($slug, $offres, "Aucune offre pour « {$slug} ».");
+            $this->assertCount(3, $offres[$slug], "« {$slug} » doit proposer trois offres.");
+
+            foreach ($offres[$slug] as $offre) {
+                foreach (['nom', 'entreprise', 'note', 'missions', 'km', 'prix', 'delai', 'jour'] as $champ) {
+                    $this->assertArrayHasKey($champ, $offre, "Champ « {$champ} » manquant sur une offre de « {$slug} ».");
+                }
+            }
+
+            /* Un metier qui accepte l'urgence doit annoncer un delai : sans
+               lui, le simulateur affiche une intervention urgente sans
+               heure d'arrivee, ce qui est exactement la promesse creuse que
+               ce site s'emploie a eviter. */
+            if ($metier['urgence']) {
+                foreach ($offres[$slug] as $offre) {
+                    $this->assertIsInt($offre['delai'], "« {$slug} » accepte l'urgence : chaque offre doit porter un delai.");
+                }
+            }
+        }
+    }
+
+    /**
+     * Le simulateur reste utilisable sans JavaScript.
+     *
+     * Les jetons de metier sont des liens vers les pages correspondantes :
+     * si le script ne s'execute pas, le bloc reste un sommaire au lieu de
+     * devenir une boite vide.
+     */
+    public function test_le_simulateur_degrade_en_sommaire(): void
+    {
+        $html = $this->get(route('accueil'))->assertOk()->getContent();
+
+        foreach (config('metiers') as $metier) {
+            $this->assertStringContainsString(
+                'href="'.route('metiers.show', $metier['slug']).'"',
+                $html
+            );
+        }
+    }
 }

@@ -5,7 +5,7 @@
 
 @section('contenu')
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <nav class="ariane" aria-label="Fil d'Ariane">
             <a href="{{ route('accueil') }}">Accueil</a>
@@ -43,7 +43,7 @@
     du matin. Une plateforme qui s'engage sur un delai qu'elle ne maitrise
     pas se brule en trois semaines.
 --}}
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo">
             <div class="duo-texte">
@@ -84,7 +84,7 @@
     </div>
 </section>
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap large">
         <x-chapitre rubrique="Les métiers concernes"
                     titre="Cinq métiers acceptent l'urgence" centre>
@@ -110,7 +110,7 @@
     dangereuse. L'application affiche d'ailleurs le meme rappel, en vert,
     sous son panneau d'urgence.
 --}}
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="carte" style="border-left:4px solid var(--rouge-lisible);max-width:860px;margin-inline:auto">
             <h2 style="font-size:clamp(1.3rem,2.4vw,1.8rem)">Avant tout : certaines urgences ne sont pas les nôtres</h2>
@@ -137,7 +137,7 @@
     </div>
 </section>
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Zone couverte" titre="Ou l'urgence fonctionne aujourd'hui" centre>
             Le service se déploie depuis la métropole lyonnaise et sa

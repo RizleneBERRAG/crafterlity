@@ -7,7 +7,7 @@
 
 @php $societe = config('crafterlity.societe'); @endphp
 
-<section class="bande serree">
+<section class="bande serree" data-anime>
     <div class="wrap">
         <nav class="ariane" aria-label="Fil d'Ariane">
             <a href="{{ route('accueil') }}">Accueil</a>
@@ -23,7 +23,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo">
 

@@ -23,7 +23,7 @@
 
 @section('contenu')
 
-<section class="bande">
+<section class="bande" data-anime>
 
     <div class="wrap" style="position:relative;z-index:1">
         <nav class="ariane" aria-label="Fil d'Ariane">
@@ -42,7 +42,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo">
             <div class="duo-texte">
@@ -63,7 +63,7 @@
 {{-- Ce que le visiteur veut vraiment savoir et qu'aucune plateforme
      n'ecrit : ou est le piege. Le dire en premier desamorce la mefiance
      mieux que trois paragraphes de promesses. --}}
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Sans mauvaise surprise" titre="Ce que vous payez, et ce que vous ne payez pas">
             La réputation du dépannage à domicile s'est faite sur des
@@ -119,7 +119,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Les services" titre="Pour quels travaux" centre>
             Dix métiers, des plus urgents aux plus tranquilles.

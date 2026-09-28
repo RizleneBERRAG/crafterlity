@@ -19,7 +19,7 @@
 
 @section('contenu')
 
-<section class="hero">
+<section class="hero" data-anime>
 
     <div class="wrap heroin">
         <div>
@@ -55,7 +55,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Votre parcours" titre="De l'inscription au virement">
             Quatre étapes, dont une seule vous demande un effort : la
@@ -118,7 +118,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <div class="duo inverse">
             <div class="duo-visuel">
@@ -159,7 +159,7 @@
     </div>
 </section>
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap large">
         <x-chapitre rubrique="Les métiers recherches" titre="Les spécialités les plus demandées" centre>
             Vous en exercez plusieurs ? Vous les cochez toutes, et vous
@@ -174,7 +174,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap">
         <x-chapitre rubrique="Questions d'artisans" titre="Ce que les professionnels nous demandent" centre />
 

@@ -37,10 +37,19 @@
       documentaire — et c'est precisement ce qui manque a une plateforme
       qui demande qu'on lui fasse confiance.
 
+   4. LE MOUVEMENT MECANIQUE. La premiere version de cette charte
+      s'interdisait toute animation. La page etait juste, et morte. Le
+      mouvement est revenu, mais il obeit a la meme logique que le reste :
+      un document se REMPLIT. Les filets se tracent, le texte se tape, les
+      chiffres defilent, la barre d'avancement se remplit, la reference de
+      section s'incremente dans le bandeau. Rien ne rebondit, rien ne
+      s'estompe, rien ne « surgit ». Les durees sont courtes (200 a 400 ms)
+      et les courbes presque lineaires : une machine n'a pas d'elan.
+
    CE QUE LA CHARTE S'INTERDIT
 
-   Aucun degrade. Aucune ombre portee. Aucun halo. Aucune animation
-   d'apparition. Aucun grand rayon. Le rouge ne sert qu'a l'urgence : s'il
+   Aucun degrade. Aucune ombre portee. Aucun halo. Aucun grand rayon. Aucun
+   mouvement qui ne dise rien. Le rouge ne sert qu'a l'urgence : s'il
    servait aussi aux erreurs de formulaire ou aux liens, il ne voudrait
    plus rien dire le jour ou il compte.
    ═══════════════════════════════════════════════════════════════════ */
@@ -80,6 +89,14 @@
      paraissent pas casses, et zero partout ailleurs. Un angle vif est
      une decision, un angle arrondi est une habitude. */
   --r:2px;
+
+  /* La barre rayee de l'application, en encre. C'est le seul motif que
+     Crafterlity avait deja, et il dit exactement ce qu'il doit dire :
+     quelque chose est en route. */
+  --rayures:repeating-linear-gradient(115deg,
+            var(--encre) 0 6px, transparent 6px 13px);
+  --rayures-pale:repeating-linear-gradient(115deg,
+            var(--filet) 0 6px, transparent 6px 13px);
 
   --titre:"Archivo",Helvetica,Arial,sans-serif;
   --corps:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;

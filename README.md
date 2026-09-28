@@ -54,7 +54,7 @@ sont relatifs : ils valent à la racine d'un domaine comme dans un
 sous-répertoire.
 
 ```powershell
-php artisan test     # 13 tests
+php artisan test     # 15 tests
 npm run dev          # rechargement à chaud pendant le développement
 ```
 
@@ -119,6 +119,62 @@ Le site prend donc la forme de ce qu'il vend : **un document de chantier**.
 Aucun dégradé, aucune ombre portée, aucune animation d'apparition. Le rouge
 ne sert qu'à l'urgence.
 
+### Ce qui bouge
+
+La première version de cette charte s'interdisait toute animation. La page
+était juste, et morte. Le mouvement est revenu, mais il obéit à la même
+logique que le reste : **un document se remplit, il ne flotte pas.**
+
+Tout mouvement du site appartient à l'une de ces quatre familles, et à
+aucune autre :
+
+| | |
+|---|---|
+| **Le tracé** | un filet passe de rien à toute sa longueur |
+| **La frappe** | un texte s'écrit caractère par caractère |
+| **Le défilé** | un nombre monte jusqu'à sa valeur |
+| **L'impression** | un bloc se découvre du haut vers le bas, sans fondu |
+
+Bannis : le rebond, le fondu enchaîné, le zoom, la rotation décorative, le
+flottement, le parallaxe. Chacun dit « site vitrine animé » ; aucun ne dit
+« intervention en cours ». Les durées tiennent entre 200 et 400 ms et les
+courbes sont presque linéaires — une machine n'a pas d'élan.
+
+Trois garde-fous valent pour chaque module :
+
+- l'état de départ est posé par le **script**, jamais par la feuille de
+  style. Sans JavaScript, rien n'est jamais masqué ;
+- « mouvement réduit » demandé : tout s'affiche d'un coup, et rien ne se
+  perd ;
+- aucune information n'existe uniquement dans une animation.
+
+En pratique : les sections s'impriment à l'arrivée, le filet d'en-tête se
+trace, la jauge de lecture se remplit sous le bandeau, la **référence de la
+section en cours** s'affiche dans la barre de navigation (`RÉF. 03 —
+L'URGENCE`), les chiffres du relevé défilent, la page des services se filtre
+à la frappe, et le téléphone de l'accueil change d'écran par onglets.
+
+### Le simulateur de demande
+
+C'est le seul endroit du site où le visiteur **fait** quelque chose au lieu
+de lire. Il choisit un métier, voit la description s'écrire, coche l'urgence,
+publie la demande — puis les offres arrivent une à une, avec un prix, une
+note, une distance et un délai. Il en accepte une, et suit le trajet : la
+barre rayée de l'application se remplit, le compte à rebours descend, les
+jalons se cochent, le paiement se confirme.
+
+Trois captures d'écran ne diront jamais ce que dit une offre qui arrive sous
+les yeux. Pour une plateforme de mise en relation, c'est la différence entre
+expliquer et montrer.
+
+Les données vivent dans `config/simulation.php`, et le composant annonce
+**deux fois**, en tête et en clair, qu'il s'agit de données d'exemple. Sur un
+site dont tout l'enjeu est de ne pas ressembler à une arnaque, faire passer
+des artisans fictifs pour réels serait exactement l'erreur à ne pas commettre.
+
+Sans JavaScript, le bloc reste un sommaire : les dix jetons sont des liens
+vers les pages métier.
+
 ### Le logo
 
 Le logo n'existait qu'en image matricielle — l'icône de l'application, un PNG
@@ -151,8 +207,12 @@ contourne la lunette de l'appareil au lieu de la manger.
   Aucun appel à `fonts.googleapis.com` — donc aucun visiteur tracé avant
   d'avoir vu la page, et aucun sous-traitant de plus à déclarer dans la
   politique de confidentialité.
-- **1 Ko de JavaScript**, pour l'ouverture du menu. La FAQ est un `<details>`,
-  les états de survol sont des transitions CSS.
+- **11 Ko de JavaScript** non minifié (3,6 Ko compressés), sans aucune
+  dépendance : menu, simulateur, filtre, onglets, jauge et compteurs. La FAQ
+  reste un `<details>`, et les états de survol des transitions CSS.
+- **Deux feuilles de style** : `app.css` pose la matière, `mouvement.css`
+  pose ce qui bouge. La règle se relit d'un bloc au lieu d'être diluée dans
+  sept cents lignes de mise en page.
 - **Aucun traceur, aucune mesure d'audience tierce.** Un seul cookie de
   session, déposé à l'envoi du formulaire.
 - **Anti-robots sans captcha** : un champ invisible et non tabulable. Un

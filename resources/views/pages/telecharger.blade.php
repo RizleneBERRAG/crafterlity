@@ -5,7 +5,7 @@
 
 @section('contenu')
 
-<section class="hero">
+<section class="hero" data-anime>
 
     <div class="wrap heroin">
         <div>
@@ -42,7 +42,7 @@
     </div>
 </section>
 
-<section class="bande jour">
+<section class="bande jour" data-anime>
     <div class="wrap large">
         <x-chapitre rubrique="Dans l'application" titre="Ce que vous y trouverez" centre />
 
@@ -74,7 +74,7 @@
     </div>
 </section>
 
-<section class="bande">
+<section class="bande" data-anime>
     <div class="wrap">
         <div class="duo">
             <div class="duo-texte">
@@ -118,7 +118,7 @@
     </div>
 </section>
 
-<section class="bande jour serree">
+<section class="bande jour serree" data-anime>
     <div class="wrap">
         <div class="carte" style="max-width:760px;margin-inline:auto;text-align:center;align-items:center">
             <h2 style="font-size:clamp(1.3rem,2.4vw,1.8rem)">Pas de téléphone sous la main ?</h2>

@@ -5,6 +5,12 @@
             <x-logo />
         </a>
 
+        {{-- La reference de la section en cours de lecture, tenue a jour par
+             le script. C'est le motif identitaire du site — « REF. 03 —
+             L'URGENCE » — employe comme reperage. Purement indicatif : il
+             est vide tant que rien n'a ete franchi, et absent sans script. --}}
+        <span id="nav-ref" aria-hidden="true"></span>
+
         {{--
             Le menu est le meme element sur toutes les largeurs : horizontal
             au-dela de 920px, panneau deroulant en deca. Il n'est jamais
@@ -54,4 +60,9 @@
         </div>
 
     </div>
+
+    {{-- La jauge de lecture : un filet d'encre rempli par la position de la
+         page. Le meme trait que partout ailleurs, charge de dire ou l'on en
+         est. Decoratif, donc masque aux synthese vocales. --}}
+    <span id="jauge" aria-hidden="true"></span>
 </header>
