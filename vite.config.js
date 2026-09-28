@@ -8,8 +8,10 @@ import laravel from 'laravel-vite-plugin';
  * utilitaire ajoute une dependance et une etape de compilation pour
  * remplacer une feuille de 700 lignes qu'on lit d'un bout a l'autre.
  *
- * Deux feuilles : app.css pose la matiere — papier, encre, filets, chasse
- * fixe — et mouvement.css pose ce qui bouge. Les separer n'est pas un
+ * Trois feuilles : app.css pose la matiere — papier, encre, filets, chasse
+ * fixe —, mouvement.css pose ce qui bouge, et telephone.css reprend ce qui,
+ * sur un ecran etroit, ne peut pas se contenter d'etre la meme chose en
+ * plus petit. Les separer n'est pas un
  * caprice : la regle « un document se remplit, il ne flotte pas » se relit
  * d'un bloc quand elle n'est pas diluee dans sept cents lignes de mise en
  * page.
@@ -25,6 +27,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/mouvement.css',
+                'resources/css/telephone.css',
                 'resources/js/app.js',
             ],
             refresh: true,

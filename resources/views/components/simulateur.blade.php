@@ -99,9 +99,11 @@
         <div class="simu-sortie" data-sortie>
             <div class="simu-vide" data-vide>
                 <p class="simu-legende"><span class="n">04</span> Les propositions</p>
+                {{-- Pas de « a gauche » : sur telephone la colonne passe
+                     dessous, et l'indication devient fausse. --}}
                 <p class="note">
-                    Choisissez un métier à gauche : les offres des
-                    professionnels apparaîtront ici.
+                    Choisissez un métier, puis publiez la demande : les offres
+                    des professionnels apparaîtront ici, une à une.
                 </p>
             </div>
         </div>

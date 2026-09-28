@@ -102,8 +102,8 @@
                         <label for="sujet">Vous écrivez en tant que</label>
                         <select id="sujet" name="sujet" required
                                 @error('sujet') aria-invalid="true" @enderror>
-                            <option value="particulier" @selected(old('sujet') === 'particulier')>Particulier — une question sur une intervention</option>
-                            <option value="professionnel" @selected(old('sujet') === 'professionnel')>Artisan — inscription, missions, versements</option>
+                            <option value="particulier" @selected(old('sujet') === 'particulier')>Particulier — une intervention</option>
+                            <option value="professionnel" @selected(old('sujet') === 'professionnel')>Artisan — inscription, missions</option>
                             <option value="presse" @selected(old('sujet') === 'presse')>Presse ou partenariat</option>
                             <option value="autre" @selected(old('sujet') === 'autre')>Autre sujet</option>
                         </select>

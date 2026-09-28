@@ -24,11 +24,11 @@
              catalogue, pas saisis a la main. Ils defilent a l'arrivee dans
              le champ de vision — un compteur mecanique, pas un effet. --}}
         <p class="releve mono">
-            <span data-compteur>{{ count($metiers) }}</span> métiers couverts
+            <span class="releve-item"><b data-compteur>{{ count($metiers) }}</b> métiers couverts</span>
             <span class="releve-sep" aria-hidden="true">·</span>
-            <span data-compteur>{{ collect($metiers)->sum(fn ($m) => count($m['besoins'])) }}</span> interventions référencées
+            <span class="releve-item"><b data-compteur>{{ collect($metiers)->sum(fn ($m) => count($m['besoins'])) }}</b> interventions référencées</span>
             <span class="releve-sep" aria-hidden="true">·</span>
-            <span data-compteur>{{ collect($metiers)->where('urgence', true)->count() }}</span> métiers en urgence
+            <span class="releve-item"><b data-compteur>{{ collect($metiers)->where('urgence', true)->count() }}</b> métiers en urgence</span>
         </p>
     </div>
 </section>

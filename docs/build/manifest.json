@@ -9,7 +9,7 @@
     "isEntry": true
   },
   "resources/css/mouvement.css": {
-    "file": "assets/mouvement-BI-FxRA2.css",
+    "file": "assets/mouvement-aHAtywzY.css",
     "name": "mouvement",
     "names": [
       "mouvement.css"
@@ -17,8 +17,17 @@
     "src": "resources/css/mouvement.css",
     "isEntry": true
   },
+  "resources/css/telephone.css": {
+    "file": "assets/telephone-B6VlbnsB.css",
+    "name": "telephone",
+    "names": [
+      "telephone.css"
+    ],
+    "src": "resources/css/telephone.css",
+    "isEntry": true
+  },
   "resources/js/app.js": {
-    "file": "assets/app-D8YoBl1-.js",
+    "file": "assets/app-RQFQEHXP.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true

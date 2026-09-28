@@ -37,10 +37,11 @@ Copie statique servie par GitHub Pages depuis `docs/`, régénérée par une
 commande :
 
 ```powershell
+php artisan serve --port=8123
 php artisan site:exporter --base=https://rizleneberrag.github.io/crafterlity
 ```
 
-Elle parcourt le site servi par Apache, réécrit les adresses, recopie les
+Elle parcourt le site servi en local, réécrit les adresses, recopie les
 assets et écrit `docs/`. Chaque page a son propre dossier (`services/plomberie/index.html`),
 donc **un lien partagé aujourd'hui restera valable le jour de la vraie mise
 en ligne**.
@@ -284,17 +285,43 @@ contourne la lunette de l'appareil au lieu de la manger.
   script le remplit, un humain non. Pas d'image illisible pour qui voit mal,
   pas de service tiers.
 
-### Responsive
+### Le téléphone
 
-Vérifié par mesure, pas à l'œil : **12 pages × 14 largeurs**, de 320 à
-1920 px, en contrôlant pour chacune que `scrollWidth` n'excède pas la
-fenêtre et qu'aucun élément ne déborde à droite. 168 combinaisons, aucun
-débordement.
+Une troisième feuille, `resources/css/telephone.css`, reprend tout ce qui,
+sur un écran étroit, ne peut pas se contenter d'être « la même chose en plus
+petit ».
 
-Les points de bascule : 1400 px (le témoin de section apparaît), 1060 px
-(les grilles passent de quatre à deux colonnes), 900 px (le menu devient un
-panneau, les duos se mettent en colonne, le simulateur s'empile), 680 px
-(tout passe sur une colonne).
+Elle existe parce qu'un premier contrôle avait conclu trop vite. Il
+vérifiait qu'aucune page ne débordait horizontalement — 168 combinaisons,
+aucun débordement — et le site n'en était pas moins mauvais sur téléphone.
+**« Ne déborde pas » ne veut pas dire « se tient ».** Une page peut être
+parfaitement contenue dans 390 pixels et demander malgré tout douze cents
+pixels de défilement avant d'afficher son titre.
+
+Ce qui a changé :
+
+- **Le cartouche se replie en une ligne.** Ses quatre cases prenaient 370 px
+  avant tout contenu : on faisait défiler un extrait de registre avant de
+  savoir ce que le site propose. Il en prend 47. Un cartouche s'annonce, il
+  ne se lit pas.
+- **Le titre passe devant le téléphone.** La version précédente ouvrait sur
+  une capture d'écran de 800 px qu'il fallait dépasser pour lire la première
+  phrase. Une image n'explique rien à qui ne sait pas encore de quoi on parle.
+- **Le tampon mord l'angle du téléphone** au lieu d'être posé au milieu de
+  son écran : la cellule se rétrécit désormais sur son contenu, donc le
+  tampon s'ancre à l'appareil et non au bord d'une colonne bien plus large.
+- **Le relevé de preuves passe de 720 px à 377 px** : la clé et son intitulé
+  sur une ligne, le détail dessous.
+- **Le relevé chiffré ne sépare plus** un nombre de ce qu'il compte.
+
+Contrôle : **12 pages × 14 largeurs**, de 320 à 1920 px, en vérifiant pour
+chacune qu'aucun élément ne déborde **et** que le titre principal reste
+visible dans les 640 premiers pixels sur mobile. 168 combinaisons, rien à
+signaler.
+
+Points de bascule : 1400 px (témoin de section), 1060 px (grilles à deux
+colonnes), 900 px (menu en panneau, duos en colonne, simulateur empilé),
+680 px (colonne unique), 380 px (typographie resserrée).
 
 ### Accessibilité
 

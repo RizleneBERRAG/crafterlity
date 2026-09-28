@@ -21,7 +21,7 @@ class ExporterSite extends Command
 {
     protected $signature = 'site:exporter
         {--base= : Adresse publique finale, ex. https://rizleneberrag.github.io/crafterlity}
-        {--source=http://localhost/crafterlity/public : Adresse locale a parcourir}
+        {--source=http://127.0.0.1:8123 : Adresse locale a parcourir, Apache ou php artisan serve}
         {--vers=docs : Dossier de destination, relatif a la racine du projet}';
 
     protected $description = 'Exporte une copie statique du site';
@@ -42,7 +42,8 @@ class ExporterSite extends Command
         }
 
         if (! $this->siteRepond($source)) {
-            $this->error("Le site ne répond pas sur {$source}. Apache est-il démarré ?");
+            $this->error("Le site ne répond pas sur {$source}.");
+            $this->line('  Démarrez `php artisan serve --port=8123`, ou passez --source=<adresse>.');
 
             return self::FAILURE;
         }

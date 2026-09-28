@@ -330,7 +330,12 @@
 .releve{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;
   margin-top:22px;padding-top:16px;border-top:1px solid var(--filet);
   font-size:.86rem;color:var(--encre-dim)}
-.releve [data-compteur]{font-size:1.15rem;font-weight:500;color:var(--encre)}
+/* Le chiffre et ce qu'il compte ne se separent jamais : ils forment un
+   seul element, sans quoi le passage en colonne sur telephone les mettait
+   sur deux lignes — « 10 », puis « metiers couverts ». */
+.releve-item{white-space:nowrap}
+.releve [data-compteur]{font-size:1.15rem;font-weight:500;font-style:normal;
+  color:var(--encre)}
 .releve-sep{color:var(--filet);padding-inline:2px}
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -380,11 +385,15 @@
 
 /* Dans le premier ecran, il est pose sur l'angle du telephone : c'est la
    que l'on tamponne une piece, sur le coin, pas au milieu. */
-.hero-visuel{position:relative}
+/* La cellule se retrecit sur le telephone qu'elle contient : sans cela le
+   tampon s'ancre au bord de la COLONNE, qui est bien plus large, et se
+   retrouve pose au milieu de l'ecran du telephone au lieu de mordre son
+   angle. */
+.hero-visuel{position:relative;width:fit-content;margin-inline:auto}
 /* Pose sur l'angle, pas au milieu : c'est la qu'on tamponne une piece. Il
    mord a peine sur le telephone — assez pour etre « par-dessus », pas assez
    pour cacher l'ecran. */
-.hero-tampon{position:absolute;left:0;bottom:24px;z-index:2;
+.hero-tampon{position:absolute;left:-34px;bottom:26px;z-index:2;
   background:var(--papier);border-radius:50%}
 
 /* ═══ le comparateur ═════════════════════════════════════════════════
@@ -468,12 +477,12 @@
 .colophon b{color:var(--encre);font-weight:500}
 
 @media (max-width:900px){
-  .cartouche{grid-template-columns:1fr 1fr}
-  .cartouche > div:nth-child(odd){border-left:0;padding-left:0}
-  .cartouche > div:nth-child(n+3){border-top:1px solid var(--filet-2)}
+  /* Le cartouche sur telephone est traite dans telephone.css, ou il se
+     replie en une ligne. Deux feuilles qui se disputent le meme bloc ne
+     peuvent que se contredire. */
   .compare{grid-template-columns:1fr}
   .compare-col + .compare-col{border-left:0;border-top:1px solid var(--encre)}
-  .hero-tampon{left:auto;right:-6px;bottom:8px;width:96px;height:96px}
+  .hero-tampon{left:-26px;bottom:14px;width:82px;height:82px}
 }
 
 @media (prefers-reduced-motion:reduce){

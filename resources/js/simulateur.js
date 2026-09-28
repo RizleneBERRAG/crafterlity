@@ -128,8 +128,8 @@ if (bloc) {
         sortie.innerHTML = `
             <div class="simu-vide">
                 <p class="simu-legende"><span class="n">04</span> Les propositions</p>
-                <p class="note">Publiez la demande : les offres des professionnels
-                apparaîtront ici, une à une.</p>
+                <p class="note">Choisissez un métier, puis publiez la demande :
+                les offres des professionnels apparaîtront ici, une à une.</p>
             </div>`;
     }
 

@@ -1,0 +1,156 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Crafterlity — le telephone
+
+   Troisieme volet de la charte. app.css pose la matiere, mouvement.css
+   pose ce qui bouge, et cette feuille reprend tout ce qui, sur un ecran
+   etroit, ne peut pas se contenter d'etre « la meme chose en plus petit ».
+
+   POURQUOI CE FICHIER EXISTE. Un premier controle avait verifie que rien
+   ne debordait horizontalement : 12 pages, 14 largeurs, 168 combinaisons,
+   aucun debordement. Le site n'en etait pas moins mauvais sur telephone —
+   parce que « ne deborde pas » ne veut pas dire « se tient ». Une page
+   peut etre parfaitement contenue dans 390 pixels et demander malgre tout
+   douze cents pixels de defilement avant d'afficher son titre.
+
+   Sur un ecran large, la mise en page dispose de deux dimensions : on
+   place cote a cote. Sur un telephone, il n'en reste qu'une, et la seule
+   question qui vaille est CE QU'ON VOIT EN PREMIER. Tout ce qui suit
+   decoule de cette question.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width:900px){
+
+  /* ── le rythme ────────────────────────────────────────────────────
+     Les respirations calculees pour une page large deviennent des trous
+     sur une colonne unique : ce qui separait deux blocs se met a separer
+     deux ecrans. */
+  .bande{padding-block:clamp(34px,7vw,52px)}
+  .bande.serree{padding-block:clamp(26px,5vw,38px)}
+
+  /* ── le bandeau ───────────────────────────────────────────────────
+     Le bouton du menu est la seule commande visible : il doit etre
+     evident, pas encombrant. */
+  .navin{min-height:60px;padding-block:8px}
+  .marque .logo{height:19px}
+  .burger{padding:8px 14px;font-size:.85rem}
+
+  /* ── le cartouche ─────────────────────────────────────────────────
+     Sur un ecran large, c'est un en-tete de document en quatre cases.
+     Sur un telephone, ces quatre cases occupaient trois cent soixante-dix
+     pixels : le visiteur faisait defiler un extrait de registre avant de
+     savoir ce que le site propose. Absurde — un cartouche s'annonce, il
+     ne se lit pas.
+
+     Il se replie donc en une ligne : les intitules disparaissent, les
+     valeurs se suivent, l'objet et la metropole aussi, puisque le titre
+     qui suit dit deja la meme chose en mieux. Quarante pixels au lieu de
+     trois cent soixante-dix, et la signature reste. */
+  .cartouche{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:2px 10px;padding-block:10px;
+    border-bottom:1px solid var(--filet)}
+  .cartouche > div{display:flex;align-items:baseline;gap:8px;
+    border:0;padding:0;white-space:nowrap}
+  /* Le separateur est pose APRES et non avant : un point rejete en debut de
+     ligne par un retour a la ligne est orphelin, la ou un point en fin de
+     ligne se lit comme une continuation. */
+  .cartouche > div:not(:last-of-type)::after{content:"·";color:var(--filet)}
+  /* L'objet est masque mais reste le dernier element du document : c'est
+     donc l'avant-dernier qui ferme la ligne, et c'est lui qui ne doit pas
+     porter de separateur. */
+  .cartouche > div:nth-last-of-type(2)::after{content:none}
+  .cartouche dt{display:none}
+  .cartouche dd{font-size:.7rem;letter-spacing:.01em;color:var(--encre-dim)}
+  .cartouche-long{display:none}
+  /* Plus specifique que « .cartouche > div », qui pose display:flex juste
+     au-dessus : sans cela l'objet restait affiche. */
+  .cartouche > div.cartouche-objet{display:none}
+
+  /* ── le premier ecran ─────────────────────────────────────────────
+     LE TITRE D'ABORD. La version precedente placait le telephone en
+     premier (order:-1) : on arrivait sur une capture d'ecran de huit
+     cents pixels, et il fallait la depasser pour lire ce que fait
+     Crafterlity. Une image n'explique rien a qui ne sait pas encore de
+     quoi on parle — elle illustre un propos qui doit la preceder. */
+  .hero{padding-block:clamp(26px,6vw,40px) 0}
+  .hero-visuel{order:0;margin-top:30px}
+  .hero-visuel img{width:min(196px,50vw)}
+
+  .hero h1{font-size:clamp(2rem,8.4vw,2.7rem);line-height:1.1;
+    max-width:none;margin-bottom:16px}
+  .hero-lede{font-size:1rem;line-height:1.55;margin-bottom:20px}
+  .hero h1 .or,.hero h1 .souligne{text-decoration-thickness:4px}
+
+  .hero-urgence{padding:12px 15px;margin-bottom:20px}
+  .hero-urgence span{font-size:.88rem}
+
+  /* ── le releve de preuves ─────────────────────────────────────────
+     Empilees, les quatre cellules demandaient sept cents pixels de
+     defilement pour quatre arguments. La cle et son intitule passent sur
+     la meme ligne, le detail en dessous : moitie moins de hauteur, et la
+     lecture en diagonale redevient possible. */
+  .preuve{flex-direction:row;flex-wrap:wrap;align-items:baseline;
+    gap:3px 10px;padding-block:14px}
+  .preuve .k{font-size:1.02rem}
+  .preuve .v{font-size:.93rem}
+  .preuve .d{flex:1 0 100%;font-size:.83rem;line-height:1.45}
+
+  /* ── les en-tetes de section ──────────────────────────────────── */
+  .chapitre,.entete{margin-bottom:24px}
+  .chapitre h2,.entete h2{font-size:clamp(1.5rem,6.4vw,2rem)}
+  .lede{font-size:.98rem}
+
+  /* ── le simulateur ────────────────────────────────────────────────
+     Empile, il garde sa bordure de separation mais perd sa hauteur
+     minimale : une zone vide de trois cent quarante pixels sous un
+     formulaire n'a aucun sens quand elle est en dessous et non a cote. */
+  .simu-form,.simu-sortie{padding:18px}
+  .simu-tete{padding:14px 18px}
+  .simu-jeton{padding:8px 12px;font-size:.87rem}
+  .simu-champ{min-height:74px}
+}
+
+@media (max-width:680px){
+
+  /* ── le relevé chiffré ────────────────────────────────────────────
+     En ligne, il se coupait entre un nombre et son intitule. En colonne,
+     chaque chiffre reste avec ce qu'il compte. */
+  .releve{flex-direction:column;gap:6px}
+  .releve-sep{display:none}
+  .releve [data-compteur]{margin-right:6px}
+
+  /* ── les grilles de metiers ───────────────────────────────────── */
+  .carte{padding:20px}
+  .carte h3{font-size:1.12rem}
+  .fanion{top:16px;right:16px}
+
+  /* ── le comparateur ───────────────────────────────────────────────
+     Les deux colonnes se suivent : un filet d'encre epais marque la
+     bascule de l'une a l'autre, sans quoi les douze lignes se lisent
+     comme un seul recit. */
+  .compare-col + .compare-col{border-top-width:2px}
+  .compare-ligne{grid-template-columns:4.6em 1fr;gap:10px;font-size:.89rem}
+  .compare-total{font-size:1.32rem}
+  .compare-note{font-size:.76rem}
+
+  /* ── les etapes ───────────────────────────────────────────────── */
+  .etape{gap:12px;padding-block:18px}
+  .etape h3{font-size:1.08rem}
+
+  /* ── la FAQ ───────────────────────────────────────────────────── */
+  .qr summary{padding:17px 0;font-size:.99rem;gap:12px}
+
+  /* ── le pied de page ──────────────────────────────────────────── */
+  .colophon{gap:4px 14px;font-size:.7rem}
+  .ourlet{font-size:.72rem}
+}
+
+/* ── les tres petits ecrans ────────────────────────────────────────
+   320 pixels reste une largeur reelle : iPhone SE de premiere
+   generation, et surtout n'importe quel telephone dont l'utilisateur a
+   grossi la police du systeme. */
+@media (max-width:380px){
+  .hero h1{font-size:1.9rem}
+  .simu-jeton{font-size:.84rem;padding:7px 10px}
+  .cartouche dd{font-size:.68rem}
+  .preuve .k{font-size:.98rem}
+}
