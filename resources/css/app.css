@@ -272,8 +272,11 @@ body{counter-reset:section}
 .marque .logo{height:21px;width:auto;color:var(--encre)}
 
 .menu{display:flex;align-items:center;gap:clamp(2px,.8vw,6px);margin-left:auto}
+/* Les intitules ne se coupent jamais : « Comment ca marche » sur deux
+   lignes fait s'epaissir le bandeau et decale tout le reste. Quand la
+   place manque, c'est le panneau deroulant qui prend le relais. */
 .menu a{padding:8px 11px;text-decoration:none;font-size:.92rem;font-weight:500;
-  color:var(--encre-2);border-bottom:2px solid transparent;
+  white-space:nowrap;color:var(--encre-2);border-bottom:2px solid transparent;
   transition:color .14s linear,border-color .14s linear}
 .menu a:hover{color:var(--encre);border-bottom-color:var(--filet)}
 .menu a[aria-current]{color:var(--encre);border-bottom-color:var(--encre)}

@@ -56,6 +56,18 @@
 
         </div>
 
+        {{-- Le colophon : la derniere ligne d'un imprime, qui dit qui l'a
+             etabli et sous quelle reference. Il ferme le document comme le
+             cartouche l'ouvrait — et il repete, a l'endroit ou l'on doute
+             le plus, que cette societe existe et se verifie. --}}
+        <div class="colophon">
+            <span>Document établi par <b>{{ $societe['raison'] }}</b></span>
+            <span>{{ $societe['forme'] }} au capital de {{ $societe['capital'] }}</span>
+            <span><b>{{ $societe['rcs'] }} {{ $societe['siren'] }}</b></span>
+            <span>TVA {{ $societe['tva'] }}</span>
+            <span>{{ $societe['code_postal'] }} {{ $societe['ville'] }}</span>
+        </div>
+
         <div class="ourlet">
             <span>
                 &copy; {{ date('Y') }} {{ $societe['raison'] }} — {{ $societe['forme'] }}

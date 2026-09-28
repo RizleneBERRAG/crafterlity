@@ -54,7 +54,7 @@ sont relatifs : ils valent à la racine d'un domaine comme dans un
 sous-répertoire.
 
 ```powershell
-php artisan test     # 15 tests
+php artisan test     # 17 tests
 npm run dev          # rechargement à chaud pendant le développement
 ```
 
@@ -154,14 +154,47 @@ section en cours** s'affiche dans la barre de navigation (`RÉF. 03 —
 L'URGENCE`), les chiffres du relevé défilent, la page des services se filtre
 à la frappe, et le téléphone de l'accueil change d'écran par onglets.
 
+### La prestance : ce qui distingue ce site des autres
+
+Le vrai risque n'était pas de faire laid, c'était de faire **le quatrième**.
+Travaux.com, StarOfService, AlloVoisins emploient la même grammaire : cartes
+arrondies, accent vif, illustrations, photos de gens qui sourient. En rester
+là, c'est ressembler à tout le monde — et sur un marché où le visiteur arrive
+méfiant, ressembler à tout le monde c'est ressembler au pire.
+
+Le parti est donc d'aller où aucun d'eux ne va : le site a la tenue d'un
+**document**, pas d'une page de vente. Trois pièces le posent.
+
+**Le cartouche** ouvre la page, avant même le titre : éditeur, immatriculation,
+établissement, objet. C'est l'en-tête d'un imprimé officiel. Chaque valeur est
+vraie et se vérifie en trente secondes sur l'annuaire des entreprises — et
+c'est exactement ce qu'on veut qu'un visiteur méfiant fasse.
+
+**Le tampon** atteste, il n'annonce pas. C'est la différence entre un contrôle
+auprès de l'INSEE et une pastille « certifié » qu'on se décerne soi-même — les
+badges de confiance sont précisément ce qui fait douter. Il est posé **une
+seule fois**, sur l'angle du téléphone, et légèrement de travers : un tampon
+posé à la main l'est toujours.
+
+**Le colophon** ferme le document comme le cartouche l'ouvrait : qui l'a
+établi, sous quelle forme juridique, sous quel numéro.
+
+S'y ajoute **le comparateur** — le même mardi matin raconté deux fois, avec
+l'heure en marge. Pas de tableau à croix rouges et coches vertes : ce
+dispositif-là est le signe d'un argumentaire, il se lit comme une publicité et
+se discute ligne par ligne. Deux récits horodatés ne se discutent pas. Chacun
+reconnaît sa propre matinée dans la colonne de gauche et conclut seul — et une
+conclusion qu'on tire soi-même est la seule qu'on garde. **2 j 6 h** contre
+**26 min**.
+
 ### Le simulateur de demande
 
 C'est le seul endroit du site où le visiteur **fait** quelque chose au lieu
 de lire. Il choisit un métier, voit la description s'écrire, coche l'urgence,
 publie la demande — puis les offres arrivent une à une, avec un prix, une
-note, une distance et un délai. Il en accepte une, et suit le trajet : la
-barre rayée de l'application se remplit, le compte à rebours descend, les
-jalons se cochent, le paiement se confirme.
+note, une distance et un délai. Il en accepte une, et suit le trajet : un plan
+schématique se dessine, le point rouge avance jusqu'à l'adresse, le compte à
+rebours descend, les jalons se cochent, le paiement se confirme.
 
 Trois captures d'écran ne diront jamais ce que dit une offre qui arrive sous
 les yeux. Pour une plateforme de mise en relation, c'est la différence entre

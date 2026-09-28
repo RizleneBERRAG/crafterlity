@@ -46,7 +46,14 @@
 
 {{-- ═══ le premier ecran ═══════════════════════════════════════════ --}}
 
-<section class="hero">
+{{-- Le cartouche : l'en-tete du document. Il ouvre la page avant meme le
+     titre, comme sur un imprime officiel — et il donne d'emblee au visiteur
+     mefiant de quoi verifier a qui il a affaire. --}}
+<section class="bande premiere serree" style="padding-block:0">
+    <div class="wrap"><x-cartouche /></div>
+</section>
+
+<section class="hero" data-anime>
 
     <div class="wrap heroin">
         <div>
@@ -83,6 +90,12 @@
         </div>
 
         <div class="hero-visuel">
+            {{-- Le tampon, pose une seule fois sur tout le site. Il atteste
+                 au lieu d'annoncer : c'est la difference entre un controle
+                 aupres de l'INSEE et un badge « certifie » qu'on se decerne
+                 soi-meme. --}}
+            <x-tampon class="hero-tampon" :taille="118" />
+
             {{-- width et height sont declares : ils reservent la place de
                  l'image avant son chargement, et evitent que le texte
                  saute au moment ou elle arrive. --}}
@@ -125,6 +138,18 @@
         </x-chapitre>
 
         <x-simulateur />
+    </div>
+</section>
+
+{{-- ═══ le comparateur ═════════════════════════════════════════════ --}}
+
+<section class="bande jour" data-anime>
+    <div class="wrap">
+        <x-chapitre rubrique="Le temps que ça prend" titre="Le même mardi matin, raconté deux fois">
+            {{ config('comparaison.situation') }}
+        </x-chapitre>
+
+        <x-comparateur />
     </div>
 </section>
 

@@ -306,3 +306,51 @@ document.querySelectorAll('[data-onglets]').forEach((bloc) => {
     }
     montrer(0);
 });
+
+/* ═══ le comparateur ═════════════════════════════════════════════════
+   Les deux colonnes s'impriment en alternance : une ligne a gauche, une
+   ligne a droite, et ainsi de suite. On voit la meme matinee se derouler
+   des deux cotes en meme temps, ce qui est tout l'objet du bloc — et ce
+   qu'on ne verrait pas si chaque colonne se remplissait a son tour.
+
+   Comme partout ailleurs, l'etat de depart est pose par le script : sans
+   JavaScript, les douze lignes sont simplement la. */
+
+const compare = document.querySelector('[data-compare]');
+
+if (compare && BOUGE && 'IntersectionObserver' in window) {
+    const lignes = [...compare.querySelectorAll('.compare-ligne')];
+    lignes.forEach((l) => l.classList.add('avant'));
+
+    /* Les lignes sont regroupees par rang, pas par colonne : le rang 0 des
+       deux colonnes s'affiche ensemble, puis le rang 1, etc. */
+    const parRang = new Map();
+    lignes.forEach((l) => {
+        const r = l.dataset.ligne;
+        if (!parRang.has(r)) parRang.set(r, []);
+        parRang.get(r).push(l);
+    });
+
+    const oeil = new IntersectionObserver((entrees) => {
+        entrees.forEach((e) => {
+            if (!e.isIntersecting) return;
+            oeil.disconnect();
+
+            let n = 0;
+            for (const rang of parRang.values()) {
+                rang.forEach((l, i) => {
+                    /* Les deux colonnes du meme rang sont decalees de
+                       90 ms : juste assez pour qu'on lise « a gauche, puis
+                       a droite » plutot que « les deux d'un coup ». */
+                    setTimeout(() => {
+                        l.classList.remove('avant');
+                        l.classList.add('vu');
+                    }, n * 260 + i * 90);
+                });
+                n++;
+            }
+        });
+    }, { threshold: 0.2 });
+
+    oeil.observe(compare);
+}

@@ -201,6 +201,44 @@ if (bloc) {
             </article>`;
     }
 
+    /* ── le plan du trajet ───────────────────────────────────────────
+       Un plan SCHEMATIQUE, et c'est un choix. Une vraie carte — rues
+       nommees, quartier reconnaissable — promettrait une precision que la
+       simulation n'a pas, et le visiteur qui chercherait son immeuble
+       dessus aurait raison de se sentir trompe. Ici, personne ne peut
+       confondre ce dessin avec une position reelle.
+
+       Le trace est fige : il sert deux fois, comme trait qui se dessine
+       et comme rail du point mobile. Le chemin est donc ecrit une seule
+       fois, et pose sur les deux elements. */
+    const TRACE = 'M24 118 L24 86 L96 86 L96 46 L190 46 L190 96 L300 96 L300 34 L392 34';
+
+    function plan() {
+        return `
+            <svg class="plan" viewBox="0 0 416 150" aria-hidden="true">
+                <g class="plan-bati">
+                    <rect x="40" y="16" width="44" height="24"/>
+                    <rect x="112" y="60" width="62" height="30"/>
+                    <rect x="206" y="14" width="76" height="22"/>
+                    <rect x="214" y="110" width="58" height="26"/>
+                    <rect x="318" y="56" width="52" height="34"/>
+                    <rect x="46" y="128" width="34" height="16"/>
+                </g>
+                <g class="plan-rue">
+                    <path d="M0 86 H416 M0 46 H416 M0 118 H416"/>
+                    <path d="M96 0 V150 M190 0 V150 M300 0 V150"/>
+                </g>
+                <path class="plan-route" data-route d="${TRACE}"/>
+                <g class="plan-cible">
+                    <circle cx="392" cy="34" r="5.5"/>
+                    <circle cx="392" cy="34" r="11" fill="none"
+                            stroke="currentColor" stroke-width="1.2" opacity=".35"/>
+                </g>
+                <circle class="plan-mobile" data-mobile r="5"
+                        style="offset-path:path('${TRACE}')"/>
+            </svg>`;
+    }
+
     /* ── le suivi d'intervention ─────────────────────────────────────── */
     async function suivre(o, estUrgent) {
         const minutes = estUrgent && o.delai !== null ? o.delai : 20;
@@ -211,6 +249,8 @@ if (bloc) {
             <div class="simu-suivi">
                 <p class="simu-nom" data-titre>${o.nom} est en route vers votre adresse</p>
                 <p class="simu-meta mono">${o.entreprise} · ${villeChoisie} · ${o.prix} €</p>
+
+                ${plan()}
 
                 <div class="simu-trajet">
                     <div class="simu-rail"><span data-rail></span></div>
@@ -234,12 +274,21 @@ if (bloc) {
         const eta = sortie.querySelector('[data-eta]');
         const titre = sortie.querySelector('[data-titre]');
         const jalons = sortie.querySelectorAll('[data-jalon]');
+        const route = sortie.querySelector('[data-route]');
+        const mobile = sortie.querySelector('[data-mobile]');
+
+        /* La longueur du trace est MESUREE, pas estimee : c'est elle qui
+           regle le pointille qui fait apparaitre la ligne. La recopier a la
+           main obligerait a la recalculer a chaque retouche du chemin. */
+        route.style.setProperty('--long', route.getTotalLength());
 
         const cocher = (n) => jalons[n] && jalons[n].classList.add('fait');
         cocher(0);
 
         if (!bouge) {
             rail.style.width = '100%';
+            route.classList.add('roule');
+            mobile.style.offsetDistance = '100%';
             [1, 2, 3].forEach(cocher);
             eta.textContent = `Intervention réalisée en ${minutes} min`;
             titre.textContent = 'Intervention terminée';
@@ -269,17 +318,38 @@ if (bloc) {
         rail.style.transition = `width ${duree}ms linear`;
         rail.style.width = '100%';
 
+        /* Le trace part sur la meme horloge que la barre : deux transitions
+           CSS de huit secondes declenchees dans la meme image.
+           Le POINT MOBILE, lui, est avance a la main dans la boucle
+           ci-dessous. Chrome applique bien « offset-path » a un element
+           SVG — le point se place — mais ne TRANSITIONNE pas
+           « offset-distance » dessus : la valeur restait a 0 % pendant que
+           le trait, lui, se dessinait. Le piloter depuis l'horloge du
+           compte a rebours garantit en prime qu'ils ne peuvent pas se
+           desynchroniser. */
+        route.classList.add('roule');
+
         await new Promise((fini) => {
+            let dernierRestant = null;
+
             const horloge = setInterval(() => {
                 const t = Math.min((Date.now() - debut) / duree, 1);
-                const restant = Math.ceil(minutes * (1 - t));
 
-                eta.textContent = restant > 0
-                    ? `Arrivée estimée dans ${restant} min`
-                    : 'Le professionnel est arrivé';
+                mobile.style.offsetDistance = (t * 100).toFixed(2) + '%';
+
+                /* Le texte n'est reecrit que lorsque la minute change :
+                   remplacer le meme contenu quinze fois par seconde ferait
+                   bavarder une synthese vocale pour rien. */
+                const restant = Math.ceil(minutes * (1 - t));
+                if (restant !== dernierRestant) {
+                    dernierRestant = restant;
+                    eta.textContent = restant > 0
+                        ? `Arrivée estimée dans ${restant} min`
+                        : 'Le professionnel est arrivé';
+                }
 
                 if (t >= 1) { clearInterval(horloge); fini(); }
-            }, 250);
+            }, 60);
         });
 
         cocher(2);

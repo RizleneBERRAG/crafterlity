@@ -78,7 +78,10 @@
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:22ch;
   opacity:0;transition:opacity .2s linear}
 #nav-ref.visible{opacity:1}
-@media (min-width:1180px){ #nav-ref{display:block} }
+/* 1400 px et non 1180 : en dessous, le temoin volait la place des
+   intitules du menu, qui passaient alors sur deux lignes. Un reperage
+   confortable ne vaut pas une navigation cassee. */
+@media (min-width:1400px){ #nav-ref{display:block} }
 
 /* ═══ le filtre des metiers ══════════════════════════════════════════
    Ajoute par le script : sans JavaScript il n'existe pas, et la liste
@@ -268,8 +271,10 @@
 .simu-jalons{list-style:none;padding:0;margin:14px 0 0;
   border-left:1px solid var(--filet);padding-left:18px;
   display:flex;flex-direction:column;gap:9px}
-.simu-jalons li{position:relative;font-size:.88rem;color:var(--encre-dim);
-  transition:color .2s linear}
+/* Pas de fondu sur la couleur du texte : un jalon est coche ou il ne l'est
+   pas. Seule la pastille s'anime — c'est elle qui fait le geste de cocher,
+   et un etat binaire n'a rien a gagner a etre interpole. */
+.simu-jalons li{position:relative;font-size:.88rem;color:var(--encre-dim)}
 .simu-jalons li::before{content:"";position:absolute;left:-23px;top:.42em;
   width:9px;height:9px;border:1px solid var(--filet);background:var(--papier);
   transition:background-color .2s linear,border-color .2s linear}
@@ -327,3 +332,151 @@
   font-size:.86rem;color:var(--encre-dim)}
 .releve [data-compteur]{font-size:1.15rem;font-weight:500;color:var(--encre)}
 .releve-sep{color:var(--filet);padding-inline:2px}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LA PRESTANCE
+
+   Ce qui distingue ce site de ses concurrents ne tient pas a un effet :
+   tous les autres — Travaux.com, StarOfService, AlloVoisins — emploient
+   la meme grammaire, cartes arrondies, accent vif, illustrations, photos
+   de gens qui sourient. En rester la, c'est etre le quatrieme.
+
+   Le parti est donc d'aller ou aucun d'eux ne va : le site a la tenue
+   d'un DOCUMENT, pas d'une page de vente. Un cartouche l'ouvre, un tampon
+   l'atteste, un colophon le ferme. Ce vocabulaire-la n'appartient pas au
+   marketing, il appartient a l'administration et a l'imprimerie — et
+   c'est precisement ce qui le rend credible sur un marche ou le visiteur
+   arrive mefiant.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══ le cartouche ═══════════════════════════════════════════════════
+   L'en-tete d'un document officiel : qui emet, sur quel objet, sous
+   quelle reference, a quelle date. Chaque valeur est VRAIE et
+   verifiable — c'est ce qui separe ce bandeau d'un costume. */
+
+.cartouche{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border-bottom:1px solid var(--filet)}
+.cartouche > div{padding:13px clamp(12px,1.6vw,22px);
+  border-left:1px solid var(--filet-2)}
+.cartouche > div:first-child{border-left:0;padding-left:0}
+.cartouche dt{font-family:var(--donnee);font-size:9.5px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--encre-dim);
+  margin-bottom:4px}
+.cartouche dd{margin:0;font-family:var(--donnee);font-size:.82rem;
+  color:var(--encre);line-height:1.4}
+
+/* ═══ le tampon ══════════════════════════════════════════════════════
+   Pose une fois, pas repete. Un tampon qui revient a chaque section
+   n'atteste plus rien, il decore. */
+
+.tampon{color:var(--encre);flex:none}
+.tampon--rouge{color:var(--rouge)}
+/* La lettre est grande et l'intitule court : un tampon qu'on doit dechiffrer
+   ne vaut pas la place qu'il prend. Deux mots en haut, deux sigles en bas. */
+.tampon-txt{font-family:var(--donnee);font-size:6.6px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;fill:currentColor}
+.tampon-centre{font-family:var(--titre);font-size:15px;font-weight:700;
+  fill:currentColor;letter-spacing:-.02em}
+
+/* Dans le premier ecran, il est pose sur l'angle du telephone : c'est la
+   que l'on tamponne une piece, sur le coin, pas au milieu. */
+.hero-visuel{position:relative}
+/* Pose sur l'angle, pas au milieu : c'est la qu'on tamponne une piece. Il
+   mord a peine sur le telephone — assez pour etre « par-dessus », pas assez
+   pour cacher l'ecran. */
+.hero-tampon{position:absolute;left:0;bottom:24px;z-index:2;
+  background:var(--papier);border-radius:50%}
+
+/* ═══ le comparateur ═════════════════════════════════════════════════
+   Deux colonnes, deux horaires, et rien d'autre. Pas de croix rouges ni
+   de coches vertes en face de « support 24/7 » : ce tableau-la est le
+   signe d'un argumentaire, pas d'une demonstration. Ici, ce sont deux
+   recits de la meme matinee, avec l'heure en marge. Le lecteur conclut
+   seul — et une conclusion qu'on tire soi-meme ne se discute pas. */
+
+.compare{display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--encre)}
+.compare-col{display:flex;flex-direction:column}
+.compare-col + .compare-col{border-left:1px solid var(--encre)}
+
+.compare-tete{padding:15px clamp(16px,2vw,24px);
+  border-bottom:1px solid var(--filet);
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.compare-tete h3{font-size:1.02rem}
+.compare-col--nous .compare-tete{background:var(--encre)}
+.compare-col--nous .compare-tete h3{color:var(--papier)}
+.compare-col--nous .compare-tete .compare-quoi{color:var(--papier);opacity:.7}
+.compare-quoi{font-family:var(--donnee);font-size:9.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--encre-dim)}
+
+.compare-lignes{list-style:none;margin:0;padding:0;flex:1}
+.compare-ligne{display:grid;grid-template-columns:5.4em 1fr;gap:14px;
+  padding:11px clamp(16px,2vw,24px);
+  border-bottom:1px solid var(--filet-2);font-size:.92rem}
+/* Les deux colonnes n'ont pas la meme hauteur : celle qui finit la
+   premiere laissait voir un filet flottant sous sa derniere ligne. */
+.compare-ligne:last-child{border-bottom:0}
+.compare-h{font-family:var(--donnee);font-size:.78rem;color:var(--encre-dim);
+  padding-top:.15em}
+.compare-t{color:var(--encre-2)}
+.compare-col--nous .compare-t{color:var(--encre)}
+
+/* Les lignes s'impriment l'une apres l'autre, en alternance d'une colonne
+   a l'autre : on voit la matinee se derouler des deux cotes en meme
+   temps, ce qui est tout l'objet du bloc. */
+.compare-ligne.avant{opacity:0;transform:translateY(-4px)}
+.compare-ligne.vu{opacity:1;transform:none;
+  transition:opacity .2s linear,transform .24s cubic-bezier(.2,.6,.3,1)}
+
+.compare-pied{padding:16px clamp(16px,2vw,24px);
+  border-top:1px solid var(--encre);margin-top:auto;
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.compare-total{font-family:var(--donnee);font-size:1.5rem;font-weight:500;
+  letter-spacing:-.02em}
+.compare-note{font-size:.8rem;color:var(--encre-dim);text-align:right}
+.compare-col--nous .compare-pied{background:var(--papier-2)}
+
+/* ═══ la carte du trajet ═════════════════════════════════════════════
+   Un plan schematique, pas une vraie carte : ni rue nommee, ni quartier
+   reconnaissable. Une carte reelle promettrait une precision que la
+   simulation n'a pas, et un visiteur qui cherche son immeuble dessus
+   aurait raison de se sentir trompe. */
+
+.plan{width:100%;height:auto;display:block;margin-bottom:4px;
+  border:1px solid var(--filet);background:var(--papier-2)}
+.plan-rue{stroke:var(--filet);stroke-width:1.4;fill:none}
+.plan-bati{fill:var(--papier-3)}
+.plan-route{stroke:var(--encre);stroke-width:2.4;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--long);stroke-dashoffset:var(--long)}
+.plan-route.roule{transition:stroke-dashoffset 8000ms linear;stroke-dashoffset:0}
+.plan-cible{fill:var(--encre)}
+/* Le point est place par « offset-path », mais sa progression est ecrite
+   par le script : Chrome ne transitionne pas « offset-distance » sur un
+   element SVG. Aucune transition declaree ici, donc — la valeur arrive
+   deja interpolee. */
+.plan-mobile{fill:var(--rouge);offset-rotate:0deg;offset-distance:0%}
+
+/* ═══ le colophon ════════════════════════════════════════════════════
+   La derniere ligne d'un imprime : qui l'a etabli, quand, sous quelle
+   reference. Elle ferme le document comme le cartouche l'ouvrait. */
+
+.colophon{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;
+  margin-top:26px;padding-top:18px;border-top:2px solid var(--encre);
+  font-family:var(--donnee);font-size:.74rem;letter-spacing:.04em;
+  color:var(--encre-dim)}
+.colophon b{color:var(--encre);font-weight:500}
+
+@media (max-width:900px){
+  .cartouche{grid-template-columns:1fr 1fr}
+  .cartouche > div:nth-child(odd){border-left:0;padding-left:0}
+  .cartouche > div:nth-child(n+3){border-top:1px solid var(--filet-2)}
+  .compare{grid-template-columns:1fr}
+  .compare-col + .compare-col{border-left:0;border-top:1px solid var(--encre)}
+  .hero-tampon{left:auto;right:-6px;bottom:8px;width:96px;height:96px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .compare-ligne.avant{opacity:1;transform:none}
+  .plan-route{stroke-dashoffset:0}
+}

@@ -263,4 +263,53 @@ class SiteTest extends TestCase
             );
         }
     }
+
+    /**
+     * Le comparateur raconte deux fois la meme matinee.
+     *
+     * Les deux colonnes doivent avoir le meme nombre de lignes : une
+     * colonne plus courte que l'autre casserait la lecture en vis-a-vis,
+     * qui est tout l'objet du bloc.
+     */
+    public function test_le_comparateur_a_deux_colonnes_egales(): void
+    {
+        $avant = config('comparaison.avant');
+        $apres = config('comparaison.apres');
+
+        foreach ([$avant, $apres] as $colonne) {
+            foreach (['titre', 'quoi', 'total', 'note', 'lignes'] as $champ) {
+                $this->assertArrayHasKey($champ, $colonne);
+                $this->assertNotEmpty($colonne[$champ]);
+            }
+        }
+
+        $this->assertSameSize(
+            $avant['lignes'],
+            $apres['lignes'],
+            'Les deux colonnes du comparateur doivent compter le meme nombre de lignes.'
+        );
+
+        $this->get(route('accueil'))
+            ->assertOk()
+            ->assertSee($avant['total'], false)
+            ->assertSee($apres['total'], false);
+    }
+
+    /**
+     * Le cartouche n'affiche que des informations verifiables.
+     *
+     * C'est ce qui le separe d'un costume : un visiteur mefiant doit
+     * pouvoir recopier le SIREN dans l'annuaire des entreprises et
+     * retrouver la societe.
+     */
+    public function test_le_cartouche_porte_les_informations_du_registre(): void
+    {
+        $s = config('crafterlity.societe');
+
+        $this->get(route('accueil'))
+            ->assertOk()
+            ->assertSee($s['raison'], false)
+            ->assertSee($s['siren'], false)
+            ->assertSee($s['ville'], false);
+    }
 }
