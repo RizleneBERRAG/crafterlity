@@ -1,0 +1,26 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-B04uokoI.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/mouvement.css": {
+    "file": "assets/mouvement-BI-FxRA2.css",
+    "name": "mouvement",
+    "names": [
+      "mouvement.css"
+    ],
+    "src": "resources/css/mouvement.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-D8YoBl1-.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}

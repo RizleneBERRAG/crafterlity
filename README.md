@@ -29,6 +29,38 @@ Ce qui manquait, et que ce projet apporte :
 
 ---
 
+## Aperçu en ligne
+
+**https://rizleneberrag.github.io/crafterlity**
+
+Copie statique servie par GitHub Pages depuis `docs/`, régénérée par une
+commande :
+
+```powershell
+php artisan site:exporter --base=https://rizleneberrag.github.io/crafterlity
+```
+
+Elle parcourt le site servi par Apache, réécrit les adresses, recopie les
+assets et écrit `docs/`. Chaque page a son propre dossier (`services/plomberie/index.html`),
+donc **un lien partagé aujourd'hui restera valable le jour de la vraie mise
+en ligne**.
+
+Ce qui change dans l'aperçu, et seulement cela :
+
+- **Le formulaire de contact est désactivé** — GitHub Pages ne sert que des
+  fichiers, il n'y a ni PHP ni base. Il est fermé visiblement plutôt que
+  laissé échouer en silence : un visiteur qui écrit un message et n'obtient
+  jamais de réponse est pire qu'un formulaire fermé.
+- **L'indexation est refusée**, par `robots.txt` et par une balise `noindex`
+  sur chaque page. L'aperçu ferait doublon avec crafterlity.com, et surtout
+  il contient des données de simulation, un projet de CGU non validé et des
+  mentions légales incomplètes. Rien de tout cela n'a à se retrouver dans un
+  moteur de recherche.
+
+Tout le reste fonctionne, parce que tout le reste est côté navigateur : le
+simulateur, le filtre des métiers, les onglets, la FAQ, la jauge de lecture
+et le témoin de section.
+
 ## Mise en route
 
 ```bash
@@ -251,6 +283,18 @@ contourne la lunette de l'appareil au lieu de la manger.
 - **Anti-robots sans captcha** : un champ invisible et non tabulable. Un
   script le remplit, un humain non. Pas d'image illisible pour qui voit mal,
   pas de service tiers.
+
+### Responsive
+
+Vérifié par mesure, pas à l'œil : **12 pages × 14 largeurs**, de 320 à
+1920 px, en contrôlant pour chacune que `scrollWidth` n'excède pas la
+fenêtre et qu'aucun élément ne déborde à droite. 168 combinaisons, aucun
+débordement.
+
+Les points de bascule : 1400 px (le témoin de section apparaît), 1060 px
+(les grilles passent de quatre à deux colonnes), 900 px (le menu devient un
+panneau, les duos se mettent en colonne, le simulateur s'empile), 680 px
+(tout passe sur une colonne).
 
 ### Accessibilité
 

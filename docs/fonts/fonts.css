@@ -1,0 +1,93 @@
+/*
+ * Quatre familles, 140 Ko, aucune requete vers un domaine tiers.
+ *
+ * ARCHIVO porte les titres. C'est une grotesque robuste, heritee des
+ * caracteres d'affichage americains du XIXe : des futs epais, des
+ * terminaisons droites, aucune rondeur amicale. Elle a l'autorite d'une
+ * enseigne d'atelier, ce qui est exactement le registre cherche.
+ *
+ * INTER porte le texte courant. Dessinee pour les ecrans, elle tient les
+ * petites tailles — ce dont une page de conditions generales a besoin.
+ *
+ * IBM PLEX MONO porte les DONNEES, et elles seules : numeros de reference,
+ * SIREN, delais, prix, codes postaux. C'est le detail qui fait la
+ * difference entre une page de marketing et un document de travail. Deux
+ * graisses statiques plutot qu'une variable : 28 Ko contre 60, pour les
+ * deux epaisseurs qui suffisent.
+ *
+ * OUTFIT ne sert qu'au logo. Le logo de Crafterlity n'existe qu'en image
+ * matricielle, sur fond blanc ; il a fallu le redessiner, et Outfit est la
+ * seule famille dont le « a » d'un seul etage et le « f » a terminaison
+ * horizontale s'en approchent. Elle n'ecrit rien d'autre sur ce site, et
+ * son jeu de caracteres est donc reduit aux lettres du mot.
+ *
+ * Le sous-ensemble est « latin » (U+0000-00FF) : il contient tous les
+ * accents francais, la cedille et les ligatures. Les jeux etendus ne sont
+ * pas charges, ils tripleraient le poids pour des caracteres que ce site
+ * n'ecrit jamais.
+ *
+ * Les chemins sont RELATIFS, pas absolus. Cette feuille vit dans le meme
+ * dossier que les cinq fichiers : « archivo-latin.woff2 » les trouve que le
+ * site occupe la racine du domaine ou un sous-repertoire — ce qui est le cas
+ * sous XAMPP, ou il est servi depuis /crafterlity/public/. Avec un chemin
+ * absolu, les polices repondaient 404 et la page basculait silencieusement
+ * sur celles du systeme.
+ *
+ * font-display:swap — le texte s'affiche immediatement dans la police du
+ * systeme puis bascule. Sur une page ou l'on vient chercher un numero de
+ * telephone en urgence, attendre une police est inacceptable.
+ */
+
+@font-face{
+  font-family:"Archivo";
+  font-style:normal;
+  font-weight:400 800;
+  font-display:swap;
+  src:url("archivo-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+    U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+    U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face{
+  font-family:"Inter";
+  font-style:normal;
+  font-weight:300 700;
+  font-display:swap;
+  src:url("inter-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+    U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+    U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face{
+  font-family:"Plex Mono";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url("plexmono-400-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+    U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+    U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face{
+  font-family:"Plex Mono";
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url("plexmono-500-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+    U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+    U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* Le logo, et rien d'autre : les onze lettres de « crafterlity ». */
+@font-face{
+  font-family:"Marque";
+  font-style:normal;
+  font-weight:800;
+  font-display:block;
+  src:url("outfit-latin.woff2") format("woff2");
+  unicode-range:U+0061,U+0063,U+0065,U+0066,U+0069,U+006C,U+0072,U+0074,U+0079;
+}
